@@ -222,31 +222,11 @@ textarea{min-height:80px}
     <p class="gray">⭐ 4.9 ・ 約 20–35 分鐘</p>
     <p class="gray">📍 大甲區</p>
 
-    <div class="food">
-      <div>
-        <div class="foodname">招牌原味螺螄粉</div>
-        <div class="price">$150</div>
-      </div>
-      <button onclick="add('招牌原味螺螄粉',150)">＋ 加入</button>
-    </div>
-
-    <div class="food">
-      <div>
-        <div class="foodname">雞肉螺螄粉</div>
-        <div class="price">$160</div>
-      </div>
-      <button onclick="add('雞肉螺螄粉',160)">＋ 加入</button>
-    </div>
-
-    <div class="food">
-      <div>
-        <div class="foodname">牛肉螺螄粉</div>
-        <div class="price">$180</div>
-      </div>
-      <button onclick="add('牛肉螺螄粉',180)">＋ 加入</button>
-    </div>
-  </div>
+    <div id="shiluo-products"></div>
 </div>
+</div>
+</div>
+</div
 
 <div class="shop searchable">
   <div class="cover">🍱</div>
@@ -670,7 +650,7 @@ updateCart();
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-analytics.js";
  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
- import { getFirestore } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
+ import {{ getFirestore, collection, getDocs } } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
 
