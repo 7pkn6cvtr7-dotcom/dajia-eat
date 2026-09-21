@@ -1,162 +1,199 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>大甲吃什麼</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>大甲吃什麼</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Noto Sans TC", sans-serif;
-      background: #f6f6f6;
-      color: #222;
-      padding-bottom: 90px;
-    }
-
-    header {
-      background: #ff6b35;
-      color: white;
-      padding: 22px 18px 20px;
-    }
-
-    header h1 {
-      margin: 0 0 5px;
-      font-size: 28px;
-    }
-
-    header p {
-      margin: 0;
-      opacity: .9;
-    }
-
-    .search {
-      padding: 15px;
-      background: white;
-    }
-
-    .search input {
-      width: 100%;
-      border: 0;
-      background: #f1f1f1;
-      padding: 14px;
-      border-radius: 12px;
-      font-size: 16px;
-      outline: none;
-    }
-
-    .categories {
-      display: flex;
-      gap: 10px;
-      overflow-x: auto;
-      padding: 12px 15px;
-      background: white;
-    }
-
-    .category {
-      white-space: nowrap;
-      background: #fff1eb;
-      color: #e8531f;
-      padding: 9px 16px;
-      border-radius: 20px;
-      font-weight: bold;
-    }
-
-    .section {
-      padding: 18px 15px;
-    }
-
-    .section h2 {
-      font-size: 20px;
-      margin: 0 0 14px;
-    }
-
-    .shop {
-      background: white;
-      border-radius: 16px;
-      margin-bottom: 15px;
-      overflow: hidden;
-      box-shadow: 0 2px 10px rgba(0,0,0,.06);
-    }
-
-    .shop-image {
-      height: 150px;
-      background: linear-gradient(135deg,#ff8a5c,#ff5d22);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 55px;
-    }
-
-    .shop-info {
-      padding: 15px;
-    }
-
-    .shop-info h3 {
-      margin: 0 0 7px;
-      font-size: 19px;
-    }
-
-    .shop-info p {
-      margin: 4px 0;
-      color: #777;
-      font-size: 14px;
-    }
-
-    .menu {
-      margin-top: 12px;
-      padding-top: 12px;
-      border-top: 1px solid #eee;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .price {
-      font-weight: bold;
-      color: #e8531f;
-    }
-
-    button {
-      border: 0;
-      background: #ff6b35;
-      color: white;
-      padding: 9px 14px;
-      border-radius: 10px;
-      font-weight: bold;
-      font-size: 14px;
-    }
-
-    .cart {
-      position: fixed;
-      left: 15px;
-      right: 15px;
-      bottom: 18px;
-      background: #222;
-      color: white;
-      border-radius: 16px;
-      padding: 15px 18px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 5px 20px rgba(0,0,0,.25);
-    }
-
-    .cart-total {
-      font-weight: bold;
-    }
-
-    .cart button {
-      background: #ff6b35;
-    }
-  </style>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Noto Sans TC",sans-serif;
+  background:#f7f7f7;
+  color:#222;
+  padding-bottom:100px;
+}
+header{
+  background:#f87542;
+  color:white;
+  padding:28px 20px 24px;
+}
+header h1{margin:0;font-size:30px}
+header p{margin:8px 0 0;font-size:16px}
+.search{background:white;padding:16px}
+.search input{
+  width:100%;
+  border:0;
+  background:#f2f2f2;
+  border-radius:15px;
+  padding:16px;
+  font-size:16px;
+}
+.categories{
+  display:flex;
+  overflow:auto;
+  gap:10px;
+  padding:12px 16px 18px;
+  background:white;
+}
+.category{
+  white-space:nowrap;
+  background:#fff0e9;
+  color:#e85d2a;
+  border-radius:25px;
+  padding:10px 17px;
+  font-weight:bold;
+}
+.content{padding:20px 16px}
+h2{margin:0 0 16px}
+.shop{
+  background:white;
+  border-radius:20px;
+  overflow:hidden;
+  margin-bottom:20px;
+  box-shadow:0 4px 15px rgba(0,0,0,.06);
+}
+.cover{
+  height:170px;
+  background:#f77c49;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:65px;
+}
+.info{padding:18px}
+.info h3{margin:0 0 8px;font-size:22px}
+.gray{color:#777;margin:5px 0}
+.food{
+  border-top:1px solid #eee;
+  margin-top:15px;
+  padding-top:15px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+}
+.foodname{font-weight:bold}
+.price{
+  color:#e85d2a;
+  font-size:18px;
+  font-weight:bold;
+  margin-top:3px;
+}
+button{
+  border:0;
+  background:#f87542;
+  color:white;
+  border-radius:12px;
+  padding:11px 16px;
+  font-size:16px;
+  font-weight:bold;
+}
+.cartbar{
+  position:fixed;
+  left:15px;
+  right:15px;
+  bottom:18px;
+  z-index:20;
+  background:#222;
+  color:white;
+  padding:14px 18px;
+  border-radius:18px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  box-shadow:0 5px 20px rgba(0,0,0,.25);
+}
+.page{
+  display:none;
+  padding:18px 16px;
+}
+.page.active{display:block}
+#home.active{display:block}
+#home{display:none}
+.back{
+  background:none;
+  color:#333;
+  padding:5px 0 15px;
+  font-size:16px;
+}
+.card{
+  background:white;
+  border-radius:18px;
+  padding:18px;
+  margin-bottom:15px;
+}
+.cartitem{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid #eee;
+  padding:13px 0;
+}
+.qty{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+.qty button{
+  padding:5px 11px;
+  border-radius:8px;
+}
+label{
+  display:block;
+  margin:15px 0 6px;
+  font-weight:bold;
+}
+input,select,textarea{
+  width:100%;
+  border:1px solid #ddd;
+  border-radius:12px;
+  padding:13px;
+  font-size:16px;
+  background:white;
+}
+textarea{min-height:80px}
+.totalrow{
+  display:flex;
+  justify-content:space-between;
+  padding:7px 0;
+}
+.grand{
+  font-size:20px;
+  font-weight:bold;
+  border-top:1px solid #ddd;
+  margin-top:8px;
+  padding-top:14px;
+}
+.submit{
+  width:100%;
+  margin-top:18px;
+  padding:15px;
+  font-size:18px;
+}
+.success{
+  text-align:center;
+  padding:35px 15px;
+}
+.success .check{font-size:70px}
+.orderNo{
+  font-size:25px;
+  font-weight:bold;
+  color:#e85d2a;
+  margin:15px 0;
+}
+.note{
+  color:#777;
+  font-size:14px;
+  line-height:1.6;
+}
+</style>
 </head>
 
 <body>
+
+<div id="home" class="page active">
 
 <header>
   <h1>🍜 大甲吃什麼</h1>
@@ -164,7 +201,7 @@
 </header>
 
 <div class="search">
-  <input type="text" placeholder="搜尋店家或餐點 🔍">
+  <input id="search" placeholder="搜尋店家或餐點 🔍" oninput="searchFood()">
 </div>
 
 <div class="categories">
@@ -173,136 +210,459 @@
   <div class="category">🍱 便當</div>
   <div class="category">🥤 飲料</div>
   <div class="category">🍗 炸物</div>
-  <div class="category">🍰 甜點</div>
 </div>
 
-<div class="section">
+<div class="content">
+<h2>大甲熱門店家</h2>
 
-  <h2>大甲熱門店家</h2>
+<div class="shop searchable">
+  <div class="cover">🍜</div>
+  <div class="info">
+    <h3>十螺 螺螄粉 大甲店</h3>
+    <p class="gray">⭐ 4.9 ・ 約 20–35 分鐘</p>
+    <p class="gray">📍 大甲區</p>
 
-  <div class="shop">
-
-    <div class="shop-image">
-      🍜
+    <div class="food">
+      <div>
+        <div class="foodname">招牌原味螺螄粉</div>
+        <div class="price">$150</div>
+      </div>
+      <button onclick="add('招牌原味螺螄粉',150)">＋ 加入</button>
     </div>
 
-    <div class="shop-info">
-
-      <h3>十螺 螺螄粉 大甲店</h3>
-
-      <p>⭐ 4.9 ・ 約 20–35 分鐘</p>
-      <p>📍 大甲區</p>
-
-      <div class="menu">
-        <div>
-          <b>招牌原味螺螄粉</b><br>
-          <span class="price">$150</span>
-        </div>
-
-        <button onclick="addCart('招牌原味螺螄粉',150)">
-          ＋ 加入
-        </button>
+    <div class="food">
+      <div>
+        <div class="foodname">雞肉螺螄粉</div>
+        <div class="price">$160</div>
       </div>
-
-      <div class="menu">
-        <div>
-          <b>雞肉螺螄粉</b><br>
-          <span class="price">$160</span>
-        </div>
-
-        <button onclick="addCart('雞肉螺螄粉',160)">
-          ＋ 加入
-        </button>
-      </div>
-
+      <button onclick="add('雞肉螺螄粉',160)">＋ 加入</button>
     </div>
 
+    <div class="food">
+      <div>
+        <div class="foodname">牛肉螺螄粉</div>
+        <div class="price">$180</div>
+      </div>
+      <button onclick="add('牛肉螺螄粉',180)">＋ 加入</button>
+    </div>
+  </div>
+</div>
+
+<div class="shop searchable">
+  <div class="cover">🍱</div>
+  <div class="info">
+    <h3>大甲便當店</h3>
+    <p class="gray">⭐ 4.7 ・ 約 15–25 分鐘</p>
+    <p class="gray">📍 大甲區</p>
+
+    <div class="food">
+      <div>
+        <div class="foodname">招牌雞腿飯</div>
+        <div class="price">$120</div>
+      </div>
+      <button onclick="add('招牌雞腿飯',120)">＋ 加入</button>
+    </div>
+
+    <div class="food">
+      <div>
+        <div class="foodname">排骨飯</div>
+        <div class="price">$110</div>
+      </div>
+      <button onclick="add('排骨飯',110)">＋ 加入</button>
+    </div>
+  </div>
+</div>
+
+</div>
+</div>
+
+<div id="cartPage" class="page">
+<button class="back" onclick="showHome()">← 繼續點餐</button>
+<h2>🛒 我的購物車</h2>
+
+<div class="card" id="cartItems"></div>
+
+<div class="card">
+  <div class="totalrow">
+    <span>餐點小計</span>
+    <span>$<span id="subtotal">0</span></span>
+  </div>
+  <div class="totalrow">
+    <span>外送費</span>
+    <span>$<span id="delivery">40</span></span>
+  </div>
+  <div class="totalrow grand">
+    <span>總計</span>
+    <span>$<span id="grandTotal">0</span></span>
   </div>
 
-  <div class="shop">
+  <button class="submit" onclick="goCheckout()">前往結帳</button>
+</div>
+</div>
 
-    <div class="shop-image">
-      🍱
-    </div>
+<div id="checkoutPage" class="page">
 
-    <div class="shop-info">
+<button class="back" onclick="showCart()">← 返回購物車</button>
 
-      <h3>大甲便當店</h3>
+<h2>填寫外送資料</h2>
 
-      <p>⭐ 4.7 ・ 約 15–25 分鐘</p>
-      <p>📍 大甲區</p>
+<div class="card">
 
-      <div class="menu">
+<label>姓名 *</label>
+<input id="name" placeholder="請輸入姓名">
 
-        <div>
-          <b>招牌雞腿飯</b><br>
-          <span class="price">$120</span>
-        </div>
+<label>手機號碼 *</label>
+<input id="phone" type="tel" placeholder="例如 0912345678">
 
-        <button onclick="addCart('招牌雞腿飯',120)">
-          ＋ 加入
-        </button>
+<label>外送地址 *</label>
+<input id="address" placeholder="例如：大甲區雁門路191號">
 
-      </div>
+<label>外送時間 *</label>
+<select id="time">
+<option value="">請選擇</option>
+<option>盡快送達</option>
+<option>30 分鐘後</option>
+<option>60 分鐘後</option>
+<option>90 分鐘後</option>
+</select>
 
-    </div>
+<label>付款方式 *</label>
+<select id="payment">
+<option value="">請選擇</option>
+<option>現金付款</option>
+<option>店家現場付款</option>
+</select>
 
-  </div>
+<label>訂單備註</label>
+<textarea id="memo" placeholder="例如：不要辣、餐具不用、到達請打電話"></textarea>
 
 </div>
 
-<div class="cart">
+<div class="card">
+<h3>訂單金額</h3>
 
-  <div>
-    🛒 <span id="cartCount">0</span> 件
-    <span class="cart-total">
-      ・ $<span id="cartTotal">0</span>
-    </span>
-  </div>
+<div class="totalrow">
+<span>餐點小計</span>
+<span>$<span id="checkoutSubtotal">0</span></span>
+</div>
 
-  <button onclick="checkout()">
-    去結帳
-  </button>
+<div class="totalrow">
+<span>外送費</span>
+<span>$40</span>
+</div>
+
+<div class="totalrow grand">
+<span>應付總額</span>
+<span>$<span id="checkoutTotal">0</span></span>
+</div>
+
+<button class="submit" onclick="submitOrder()">確認送出訂單</button>
+
+<p class="note">
+目前為測試版本。送出後會產生訂單編號，
+下一階段會再串接店家接單系統與 LINE 通知。
+</p>
+
+</div>
+</div>
+
+<div id="successPage" class="page">
+
+<div class="card success">
+
+<div class="check">✅</div>
+
+<h2>訂單已建立</h2>
+
+<p>你的訂單編號</p>
+
+<div class="orderNo" id="orderNo"></div>
+
+<p id="successInfo"></p>
+
+<button class="submit" onclick="newOrder()">回首頁</button>
+
+<p class="note">
+目前此版本為測試訂單，尚未真的通知店家。
+</p>
+
+</div>
+</div>
+
+<div id="cartBar" class="cartbar">
+
+<div>
+🛒 <span id="count">0</span> 件 ・
+$<span id="total">0</span>
+</div>
+
+<button onclick="showCart()">查看購物車</button>
 
 </div>
 
 <script>
 
-let count = 0;
-let total = 0;
-let items = [];
+let cart = [];
+const deliveryFee = 40;
 
-function addCart(name, price) {
+function add(name,price){
 
-  count++;
-  total += price;
+  let item = cart.find(x => x.name === name);
 
-  items.push({
-    name: name,
-    price: price
-  });
+  if(item){
+    item.qty++;
+  }else{
+    cart.push({
+      name:name,
+      price:price,
+      qty:1
+    });
+  }
 
-  document.getElementById("cartCount").innerText = count;
-  document.getElementById("cartTotal").innerText = total;
+  updateCart();
 }
 
-function checkout() {
+function updateCart(){
 
-  if(count === 0){
+  let count = 0;
+  let total = 0;
+
+  cart.forEach(item=>{
+    count += item.qty;
+    total += item.price * item.qty;
+  });
+
+  document.getElementById("count").innerText=count;
+  document.getElementById("total").innerText=total;
+
+  renderCart();
+}
+
+function renderCart(){
+
+  let box=document.getElementById("cartItems");
+
+  if(cart.length===0){
+    box.innerHTML="<p>購物車目前是空的</p>";
+  }else{
+
+    box.innerHTML="";
+
+    cart.forEach((item,index)=>{
+
+      box.innerHTML += `
+      <div class="cartitem">
+
+        <div>
+          <b>${item.name}</b><br>
+          <span class="price">$${item.price}</span>
+        </div>
+
+        <div class="qty">
+          <button onclick="minus(${index})">−</button>
+          <b>${item.qty}</b>
+          <button onclick="plus(${index})">＋</button>
+        </div>
+
+      </div>
+      `;
+    });
+  }
+
+  let subtotal=cart.reduce(
+    (sum,item)=>sum+item.price*item.qty,0
+  );
+
+  document.getElementById("subtotal").innerText=subtotal;
+
+  document.getElementById("grandTotal").innerText=
+    cart.length ? subtotal+deliveryFee : 0;
+
+  document.getElementById("checkoutSubtotal").innerText=subtotal;
+
+  document.getElementById("checkoutTotal").innerText=
+    cart.length ? subtotal+deliveryFee : 0;
+}
+
+function plus(i){
+  cart[i].qty++;
+  updateCart();
+}
+
+function minus(i){
+
+  cart[i].qty--;
+
+  if(cart[i].qty<=0){
+    cart.splice(i,1);
+  }
+
+  updateCart();
+}
+
+function hideAll(){
+
+  document.getElementById("home").classList.remove("active");
+  document.getElementById("cartPage").classList.remove("active");
+  document.getElementById("checkoutPage").classList.remove("active");
+  document.getElementById("successPage").classList.remove("active");
+
+}
+
+function showHome(){
+
+  hideAll();
+
+  document.getElementById("home").classList.add("active");
+
+  document.getElementById("cartBar").style.display="flex";
+
+  window.scrollTo(0,0);
+}
+
+function showCart(){
+
+  if(cart.length===0){
     alert("購物車目前是空的");
     return;
   }
 
-  let order = "你的訂單：\n\n";
+  hideAll();
 
-  items.forEach(function(item){
-    order += item.name + " $" + item.price + "\n";
-  });
+  renderCart();
 
-  order += "\n總金額 $" + total;
+  document.getElementById("cartPage").classList.add("active");
 
-  alert(order);
+  document.getElementById("cartBar").style.display="none";
+
+  window.scrollTo(0,0);
 }
+
+function goCheckout(){
+
+  if(cart.length===0){
+    alert("請先加入餐點");
+    return;
+  }
+
+  hideAll();
+
+  document.getElementById("checkoutPage").classList.add("active");
+
+  window.scrollTo(0,0);
+}
+
+function submitOrder(){
+
+  let name=document.getElementById("name").value.trim();
+  let phone=document.getElementById("phone").value.trim();
+  let address=document.getElementById("address").value.trim();
+  let time=document.getElementById("time").value;
+  let payment=document.getElementById("payment").value;
+
+  if(!name){
+    alert("請輸入姓名");
+    return;
+  }
+
+  if(!/^09\d{8}$/.test(phone)){
+    alert("請輸入正確的手機號碼");
+    return;
+  }
+
+  if(!address){
+    alert("請輸入外送地址");
+    return;
+  }
+
+  if(!time){
+    alert("請選擇外送時間");
+    return;
+  }
+
+  if(!payment){
+    alert("請選擇付款方式");
+    return;
+  }
+
+  let number =
+    "DJ" +
+    new Date().getFullYear().toString().slice(-2) +
+    String(new Date().getMonth()+1).padStart(2,"0") +
+    String(new Date().getDate()).padStart(2,"0") +
+    "-" +
+    Math.floor(1000+Math.random()*9000);
+
+  let subtotal=cart.reduce(
+    (sum,item)=>sum+item.price*item.qty,0
+  );
+
+  let order={
+    orderNo:number,
+    name:name,
+    phone:phone,
+    address:address,
+    time:time,
+    payment:payment,
+    memo:document.getElementById("memo").value,
+    cart:cart,
+    subtotal:subtotal,
+    deliveryFee:deliveryFee,
+    total:subtotal+deliveryFee,
+    createdAt:new Date().toLocaleString("zh-TW")
+  };
+
+  localStorage.setItem(
+    "lastOrder",
+    JSON.stringify(order)
+  );
+
+  hideAll();
+
+  document.getElementById("successPage").classList.add("active");
+
+  document.getElementById("orderNo").innerText=number;
+
+  document.getElementById("successInfo").innerHTML=
+    "外送至：<b>"+address+"</b><br><br>"+
+    "預計："+time+"<br>"+
+    "總金額：<b>$"+order.total+"</b>";
+
+  window.scrollTo(0,0);
+}
+
+function newOrder(){
+
+  cart=[];
+
+  updateCart();
+
+  document.getElementById("name").value="";
+  document.getElementById("phone").value="";
+  document.getElementById("address").value="";
+  document.getElementById("time").value="";
+  document.getElementById("payment").value="";
+  document.getElementById("memo").value="";
+
+  showHome();
+}
+
+function searchFood(){
+
+  let keyword=
+    document.getElementById("search").value.toLowerCase();
+
+  document.querySelectorAll(".searchable").forEach(shop=>{
+
+    let text=shop.innerText.toLowerCase();
+
+    shop.style.display=
+      text.includes(keyword) ? "block" : "none";
+
+  });
+}
+
+updateCart();
 
 </script>
 
