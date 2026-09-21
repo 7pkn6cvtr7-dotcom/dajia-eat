@@ -1,157 +1,694 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>大甲吃什麼｜店家管理後台</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<title>大甲吃什麼｜管理後台</title>
 
-    body {
-      margin: 0;
-      font-family: Arial, "Noto Sans TC", sans-serif;
-      background: #f5f5f5;
-      color: #222;
-    }
+<style>
+*{
+  box-sizing:border-box;
+}
 
-    .header {
-      background: #ef7f4d;
-      color: white;
-      padding: 22px;
-      text-align: center;
-      font-size: 24px;
-      font-weight: bold;
-    }
+body{
+  margin:0;
+  font-family:Arial,"Noto Sans TC",sans-serif;
+  background:#f5f5f5;
+  color:#222;
+}
 
-    .box {
-      background: white;
-      margin: 20px;
-      padding: 20px;
-      border-radius: 18px;
-      box-shadow: 0 3px 15px rgba(0,0,0,.08);
-    }
+.header{
+  background:#ef7f4d;
+  color:white;
+  padding:22px;
+  text-align:center;
+  font-size:24px;
+  font-weight:bold;
+}
 
-    h2 {
-      margin-top: 0;
-    }
+.container{
+  max-width:700px;
+  margin:auto;
+  padding-bottom:50px;
+}
 
-    label {
-      display: block;
-      margin-top: 15px;
-      margin-bottom: 6px;
-      font-weight: bold;
-    }
+.box{
+  background:white;
+  margin:18px;
+  padding:20px;
+  border-radius:18px;
+  box-shadow:0 3px 15px rgba(0,0,0,.08);
+}
 
-    input {
-      width: 100%;
-      padding: 14px;
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      font-size: 16px;
-    }
+h2{
+  margin-top:0;
+}
 
-    button {
-      width: 100%;
-      margin-top: 20px;
-      padding: 15px;
-      border: 0;
-      border-radius: 12px;
-      background: #ef7f4d;
-      color: white;
-      font-size: 18px;
-      font-weight: bold;
-    }
+label{
+  display:block;
+  margin-top:15px;
+  margin-bottom:6px;
+  font-weight:bold;
+}
 
-    #message {
-      margin-top: 15px;
-      text-align: center;
-      font-weight: bold;
-    }
-  </style>
+input,select{
+  width:100%;
+  padding:14px;
+  border:1px solid #ddd;
+  border-radius:10px;
+  font-size:16px;
+  background:white;
+}
+
+button{
+  width:100%;
+  margin-top:18px;
+  padding:15px;
+  border:0;
+  border-radius:12px;
+  background:#ef7f4d;
+  color:white;
+  font-size:17px;
+  font-weight:bold;
+}
+
+button:disabled{
+  opacity:.6;
+}
+
+.message{
+  margin-top:14px;
+  text-align:center;
+  font-weight:bold;
+}
+
+.item{
+  padding:14px 0;
+  border-bottom:1px solid #eee;
+}
+
+.item:last-child{
+  border-bottom:none;
+}
+
+.item-name{
+  font-size:17px;
+  font-weight:bold;
+}
+
+.item-info{
+  margin-top:5px;
+  color:#777;
+}
+
+.empty{
+  color:#999;
+  text-align:center;
+  padding:15px 0;
+}
+</style>
 </head>
 
 <body>
 
-  <div class="header">
-    大甲吃什麼｜店家管理後台
-  </div>
+<div class="header">
+  大甲吃什麼｜管理後台
+</div>
 
+<div class="container">
+
+  <!-- 新增店家 -->
   <div class="box">
-    <h2>新增商品</h2>
 
-    <label>商品名稱</label>
-    <input id="productName" placeholder="例如：雞肉螺螄粉">
+    <h2>🏪 新增店家</h2>
 
-    <label>價格</label>
-    <input id="productPrice" type="number" placeholder="例如：160">
+    <label>店家名稱</label>
+    <input
+      id="storeName"
+      placeholder="例如：十螺 螺螄粉 大甲店"
+    >
 
     <label>店家 ID</label>
-    <input id="storeId" value="shiluo-dajia">
+    <input
+      id="newStoreId"
+      placeholder="例如：shiluo-dajia"
+    >
+
+    <label>店家地址</label>
+    <input
+      id="storeAddress"
+      placeholder="例如：台中市大甲區..."
+    >
+
+    <button id="addStoreBtn">
+      ＋ 新增店家
+    </button>
+
+    <div id="storeMessage" class="message"></div>
+
+  </div>
+
+
+  <!-- 店家列表 -->
+  <div class="box">
+
+    <h2>📋 店家列表</h2>
+
+    <div id="storeList">
+      <div class="empty">讀取中...</div>
+    </div>
+
+  </div>
+
+
+  <!-- 新增商品 -->
+  <div class="box">
+
+    <h2>🍜 新增商品</h2>
+
+    <label>選擇店家</label>
+
+    <select id="storeSelect">
+      <option value="">
+        請先選擇店家
+      </option>
+    </select>
+
+    <label>商品名稱</label>
+
+    <input
+      id="productName"
+      placeholder="例如：原味螺螄粉"
+    >
+
+    <label>價格</label>
+
+    <input
+      id="productPrice"
+      type="number"
+      placeholder="例如：150"
+    >
 
     <button id="addProductBtn">
       ＋ 新增商品
     </button>
 
-    <div id="message"></div>
+    <div id="productMessage" class="message"></div>
+
   </div>
-  <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
-  import {
-    getFirestore,
-    collection,
-    addDoc
-  } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyBGJmQtrcZzLGPa783ZEAAI9FLS",
-    authDomain: "dajia-eat.firebaseapp.com",
-    projectId: "dajia-eat",
-    storageBucket: "dajia-eat.firebasestorage.app",
-    messagingSenderId: "213698880065"
-  };
 
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
+  <!-- 商品列表 -->
+  <div class="box">
 
-  const button = document.getElementById("addProductBtn");
-  const message = document.getElementById("message");
+    <h2>📦 商品列表</h2>
 
-  button.addEventListener("click", async () => {
-    const name = document.getElementById("productName").value.trim();
-    const price = Number(document.getElementById("productPrice").value);
-    const storeId = document.getElementById("storeId").value.trim();
+    <div id="productList">
+      <div class="empty">
+        請先選擇店家
+      </div>
+    </div>
 
-    if (!name || !price || !storeId) {
-      message.textContent = "請把商品資料填完整";
+  </div>
+
+</div>
+
+
+<script type="module">
+
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs,
+  query,
+  where
+} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
+
+
+const firebaseConfig = {
+
+  apiKey:
+  "AIzaSyBGJmQtrcZzLGPa783ZEAAI9FLS",
+
+  authDomain:
+  "dajia-eat.firebaseapp.com",
+
+  projectId:
+  "dajia-eat",
+
+  storageBucket:
+  "dajia-eat.firebasestorage.app",
+
+  messagingSenderId:
+  "213698880065"
+
+};
+
+
+const app = initializeApp(firebaseConfig);
+
+const db = getFirestore(app);
+
+
+
+/* =========================
+   新增店家
+========================= */
+
+const addStoreBtn =
+document.getElementById("addStoreBtn");
+
+const storeMessage =
+document.getElementById("storeMessage");
+
+
+addStoreBtn.addEventListener(
+"click",
+async()=>{
+
+  const name =
+  document.getElementById("storeName")
+  .value.trim();
+
+  const storeId =
+  document.getElementById("newStoreId")
+  .value.trim();
+
+  const address =
+  document.getElementById("storeAddress")
+  .value.trim();
+
+
+  if(!name || !storeId){
+
+    storeMessage.textContent =
+    "請填寫店家名稱與店家 ID";
+
+    return;
+  }
+
+
+  try{
+
+    addStoreBtn.disabled=true;
+
+    addStoreBtn.textContent=
+    "新增中...";
+
+
+    await addDoc(
+      collection(db,"stores"),
+      {
+        name:name,
+        storeId:storeId,
+        address:address,
+        active:true
+      }
+    );
+
+
+    storeMessage.textContent=
+    "✅ 店家新增成功";
+
+
+    document.getElementById(
+      "storeName"
+    ).value="";
+
+    document.getElementById(
+      "newStoreId"
+    ).value="";
+
+    document.getElementById(
+      "storeAddress"
+    ).value="";
+
+
+    await loadStores();
+
+
+  }catch(error){
+
+    console.error(error);
+
+    storeMessage.textContent=
+    "❌ 新增失敗："+error.message;
+
+  }finally{
+
+    addStoreBtn.disabled=false;
+
+    addStoreBtn.textContent=
+    "＋ 新增店家";
+
+  }
+
+});
+
+
+
+/* =========================
+   讀取店家
+========================= */
+
+async function loadStores(){
+
+  const storeList =
+  document.getElementById("storeList");
+
+  const storeSelect =
+  document.getElementById("storeSelect");
+
+
+  storeList.innerHTML=
+  '<div class="empty">讀取中...</div>';
+
+
+  storeSelect.innerHTML=
+  '<option value="">請先選擇店家</option>';
+
+
+  try{
+
+    const snapshot =
+    await getDocs(
+      collection(db,"stores")
+    );
+
+
+    if(snapshot.empty){
+
+      storeList.innerHTML=
+      '<div class="empty">目前還沒有店家</div>';
+
       return;
     }
 
-    try {
-      button.disabled = true;
-      button.textContent = "新增中...";
 
-      await addDoc(collection(db, "products"), {
-        name: name,
-        price: price,
-        storeId: storeId
-      });
+    storeList.innerHTML="";
 
-      message.textContent = "✅ 商品新增成功";
 
-      document.getElementById("productName").value = "";
-      document.getElementById("productPrice").value = "";
+    snapshot.forEach(doc=>{
 
-    } catch (error) {
-      console.error(error);
-      message.textContent = "❌ 新增失敗：" + error.message;
-    } finally {
-      button.disabled = false;
-      button.textContent = "＋ 新增商品";
+      const store=doc.data();
+
+
+      const div=
+      document.createElement("div");
+
+      div.className="item";
+
+      div.innerHTML=`
+        <div class="item-name">
+          ${escapeHtml(store.name || "")}
+        </div>
+
+        <div class="item-info">
+          ID：${escapeHtml(store.storeId || "")}
+          <br>
+          ${escapeHtml(store.address || "")}
+        </div>
+      `;
+
+      storeList.appendChild(div);
+
+
+      const option=
+      document.createElement("option");
+
+      option.value=
+      store.storeId || "";
+
+      option.textContent=
+      store.name || store.storeId;
+
+      storeSelect.appendChild(option);
+
+    });
+
+
+  }catch(error){
+
+    console.error(error);
+
+    storeList.innerHTML=
+    '<div class="empty">❌ 店家讀取失敗</div>';
+
+  }
+
+}
+
+
+
+/* =========================
+   新增商品
+========================= */
+
+const addProductBtn =
+document.getElementById(
+  "addProductBtn"
+);
+
+const productMessage =
+document.getElementById(
+  "productMessage"
+);
+
+
+addProductBtn.addEventListener(
+"click",
+async()=>{
+
+  const storeId =
+  document.getElementById(
+    "storeSelect"
+  ).value;
+
+
+  const name =
+  document.getElementById(
+    "productName"
+  ).value.trim();
+
+
+  const price =
+  Number(
+    document.getElementById(
+      "productPrice"
+    ).value
+  );
+
+
+  if(!storeId){
+
+    productMessage.textContent=
+    "請先選擇店家";
+
+    return;
+  }
+
+
+  if(!name || !price){
+
+    productMessage.textContent=
+    "請填寫商品名稱與價格";
+
+    return;
+  }
+
+
+  try{
+
+    addProductBtn.disabled=true;
+
+    addProductBtn.textContent=
+    "新增中...";
+
+
+    await addDoc(
+      collection(db,"products"),
+      {
+        name:name,
+        price:price,
+        storeId:storeId,
+        active:true
+      }
+    );
+
+
+    productMessage.textContent=
+    "✅ 商品新增成功";
+
+
+    document.getElementById(
+      "productName"
+    ).value="";
+
+    document.getElementById(
+      "productPrice"
+    ).value="";
+
+
+    await loadProducts(storeId);
+
+
+  }catch(error){
+
+    console.error(error);
+
+    productMessage.textContent=
+    "❌ 新增失敗："+error.message;
+
+  }finally{
+
+    addProductBtn.disabled=false;
+
+    addProductBtn.textContent=
+    "＋ 新增商品";
+
+  }
+
+});
+
+
+
+/* =========================
+   商品列表
+========================= */
+
+document.getElementById(
+  "storeSelect"
+).addEventListener(
+"change",
+function(){
+
+  const storeId=this.value;
+
+  if(storeId){
+
+    loadProducts(storeId);
+
+  }else{
+
+    document.getElementById(
+      "productList"
+    ).innerHTML=
+    '<div class="empty">請先選擇店家</div>';
+
+  }
+
+});
+
+
+async function loadProducts(storeId){
+
+  const list =
+  document.getElementById(
+    "productList"
+  );
+
+
+  list.innerHTML=
+  '<div class="empty">讀取中...</div>';
+
+
+  try{
+
+    const q=query(
+
+      collection(db,"products"),
+
+      where(
+        "storeId",
+        "==",
+        storeId
+      )
+
+    );
+
+
+    const snapshot=
+    await getDocs(q);
+
+
+    if(snapshot.empty){
+
+      list.innerHTML=
+      '<div class="empty">這家店目前沒有商品</div>';
+
+      return;
     }
-  });
+
+
+    list.innerHTML="";
+
+
+    snapshot.forEach(doc=>{
+
+      const product=
+      doc.data();
+
+
+      const div=
+      document.createElement("div");
+
+      div.className="item";
+
+
+      div.innerHTML=`
+        <div class="item-name">
+          ${escapeHtml(product.name || "")}
+        </div>
+
+        <div class="item-info">
+          NT$ ${Number(product.price || 0)}
+        </div>
+      `;
+
+
+      list.appendChild(div);
+
+    });
+
+
+  }catch(error){
+
+    console.error(error);
+
+    list.innerHTML=
+    '<div class="empty">❌ 商品讀取失敗</div>';
+
+  }
+
+}
+
+
+
+/* 防止文字破壞頁面 */
+
+function escapeHtml(text){
+
+  const div=
+  document.createElement("div");
+
+  div.textContent=text;
+
+  return div.innerHTML;
+
+}
+
+
+
+/* 開啟後台時載入店家 */
+
+loadStores();
+
 </script>
 
 </body>
