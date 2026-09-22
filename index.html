@@ -7,6 +7,7 @@
 
 <style>
 *{box-sizing:border-box}
+
 body{
   margin:0;
   font-family:-apple-system,BlinkMacSystemFont,"Noto Sans TC",sans-serif;
@@ -14,14 +15,21 @@ body{
   color:#222;
   padding-bottom:100px;
 }
+
 header{
   background:#f87542;
   color:white;
   padding:28px 20px 24px;
 }
+
 header h1{margin:0;font-size:30px}
 header p{margin:8px 0 0;font-size:16px}
-.search{background:white;padding:16px}
+
+.search{
+  background:white;
+  padding:16px;
+}
+
 .search input{
   width:100%;
   border:0;
@@ -30,6 +38,7 @@ header p{margin:8px 0 0;font-size:16px}
   padding:16px;
   font-size:16px;
 }
+
 .categories{
   display:flex;
   overflow:auto;
@@ -37,6 +46,7 @@ header p{margin:8px 0 0;font-size:16px}
   padding:12px 16px 18px;
   background:white;
 }
+
 .category{
   white-space:nowrap;
   background:#fff0e9;
@@ -45,8 +55,15 @@ header p{margin:8px 0 0;font-size:16px}
   padding:10px 17px;
   font-weight:bold;
 }
-.content{padding:20px 16px}
-h2{margin:0 0 16px}
+
+.content{
+  padding:20px 16px;
+}
+
+h2{
+  margin:0 0 16px;
+}
+
 .shop{
   background:white;
   border-radius:20px;
@@ -54,6 +71,7 @@ h2{margin:0 0 16px}
   margin-bottom:20px;
   box-shadow:0 4px 15px rgba(0,0,0,.06);
 }
+
 .cover{
   height:170px;
   background:#f77c49;
@@ -62,9 +80,21 @@ h2{margin:0 0 16px}
   align-items:center;
   font-size:65px;
 }
-.info{padding:18px}
-.info h3{margin:0 0 8px;font-size:22px}
-.gray{color:#777;margin:5px 0}
+
+.info{
+  padding:18px;
+}
+
+.info h3{
+  margin:0 0 8px;
+  font-size:22px;
+}
+
+.gray{
+  color:#777;
+  margin:5px 0;
+}
+
 .food{
   border-top:1px solid #eee;
   margin-top:15px;
@@ -74,13 +104,18 @@ h2{margin:0 0 16px}
   align-items:center;
   gap:10px;
 }
-.foodname{font-weight:bold}
+
+.foodname{
+  font-weight:bold;
+}
+
 .price{
   color:#e85d2a;
   font-size:18px;
   font-weight:bold;
   margin-top:3px;
 }
+
 button{
   border:0;
   background:#f87542;
@@ -90,6 +125,16 @@ button{
   font-size:16px;
   font-weight:bold;
 }
+
+button:disabled{
+  opacity:.6;
+}
+
+.loading{
+  color:#888;
+  padding:18px 0 5px;
+}
+
 .cartbar{
   position:fixed;
   left:15px;
@@ -105,25 +150,39 @@ button{
   align-items:center;
   box-shadow:0 5px 20px rgba(0,0,0,.25);
 }
+
 .page{
   display:none;
   padding:18px 16px;
 }
-.page.active{display:block}
-#home.active{display:block}
-#home{display:none}
+
+.page.active{
+  display:block;
+}
+
+#home.active{
+  display:block;
+}
+
+#home{
+  display:none;
+  padding:0;
+}
+
 .back{
   background:none;
   color:#333;
   padding:5px 0 15px;
   font-size:16px;
 }
+
 .card{
   background:white;
   border-radius:18px;
   padding:18px;
   margin-bottom:15px;
 }
+
 .cartitem{
   display:flex;
   justify-content:space-between;
@@ -131,20 +190,24 @@ button{
   border-bottom:1px solid #eee;
   padding:13px 0;
 }
+
 .qty{
   display:flex;
   gap:10px;
   align-items:center;
 }
+
 .qty button{
   padding:5px 11px;
   border-radius:8px;
 }
+
 label{
   display:block;
   margin:15px 0 6px;
   font-weight:bold;
 }
+
 input,select,textarea{
   width:100%;
   border:1px solid #ddd;
@@ -153,12 +216,17 @@ input,select,textarea{
   font-size:16px;
   background:white;
 }
-textarea{min-height:80px}
+
+textarea{
+  min-height:80px;
+}
+
 .totalrow{
   display:flex;
   justify-content:space-between;
   padding:7px 0;
 }
+
 .grand{
   font-size:20px;
   font-weight:bold;
@@ -166,23 +234,30 @@ textarea{min-height:80px}
   margin-top:8px;
   padding-top:14px;
 }
+
 .submit{
   width:100%;
   margin-top:18px;
   padding:15px;
   font-size:18px;
 }
+
 .success{
   text-align:center;
   padding:35px 15px;
 }
-.success .check{font-size:70px}
+
+.success .check{
+  font-size:70px;
+}
+
 .orderNo{
   font-size:25px;
   font-weight:bold;
   color:#e85d2a;
   margin:15px 0;
 }
+
 .note{
   color:#777;
   font-size:14px;
@@ -201,7 +276,11 @@ textarea{min-height:80px}
 </header>
 
 <div class="search">
-  <input id="search" placeholder="搜尋店家或餐點 🔍" oninput="searchFood()">
+  <input
+    id="search"
+    placeholder="搜尋店家或餐點 🔍"
+    oninput="searchFood()"
+  >
 </div>
 
 <div class="categories">
@@ -213,76 +292,141 @@ textarea{min-height:80px}
 </div>
 
 <div class="content">
+
 <h2>大甲熱門店家</h2>
 
+<!-- 十螺 -->
 <div class="shop searchable">
+
   <div class="cover">🍜</div>
+
   <div class="info">
+
     <h3>十螺 螺螄粉 大甲店</h3>
-    <p class="gray">⭐ 4.9 ・ 約 20–35 分鐘</p>
-    <p class="gray">📍 大甲區</p>
 
-    <div id="shiluo-products"></div>
-</div>
-</div>
-</div>
-</div
+    <p class="gray">
+      ⭐ 4.9 ・ 約 20–35 分鐘
+    </p>
 
-<div class="shop searchable">
-  <div class="cover">🍱</div>
-  <div class="info">
-    <h3>大甲便當店</h3>
-    <p class="gray">⭐ 4.7 ・ 約 15–25 分鐘</p>
-    <p class="gray">📍 大甲區</p>
+    <p class="gray">
+      📍 大甲區
+    </p>
 
-    <div class="food">
-      <div>
-        <div class="foodname">招牌雞腿飯</div>
-        <div class="price">$120</div>
+    <div id="shiluo-products">
+      <div class="loading">
+        商品讀取中...
       </div>
-      <button onclick="add('招牌雞腿飯',120)">＋ 加入</button>
     </div>
 
-    <div class="food">
-      <div>
-        <div class="foodname">排骨飯</div>
-        <div class="price">$110</div>
-      </div>
-      <button onclick="add('排骨飯',110)">＋ 加入</button>
-    </div>
   </div>
+
+</div>
+
+
+<!-- 測試便當店 -->
+<div class="shop searchable">
+
+  <div class="cover">🍱</div>
+
+  <div class="info">
+
+    <h3>大甲便當店</h3>
+
+    <p class="gray">
+      ⭐ 4.7 ・ 約 15–25 分鐘
+    </p>
+
+    <p class="gray">
+      📍 大甲區
+    </p>
+
+    <div class="food">
+
+      <div>
+        <div class="foodname">
+          招牌雞腿飯
+        </div>
+
+        <div class="price">
+          $120
+        </div>
+      </div>
+
+      <button onclick="add('招牌雞腿飯',120,'test-bento')">
+        ＋ 加入
+      </button>
+
+    </div>
+
+    <div class="food">
+
+      <div>
+        <div class="foodname">
+          排骨飯
+        </div>
+
+        <div class="price">
+          $110
+        </div>
+      </div>
+
+      <button onclick="add('排骨飯',110,'test-bento')">
+        ＋ 加入
+      </button>
+
+    </div>
+
+  </div>
+
 </div>
 
 </div>
 </div>
 
+
+<!-- 購物車 -->
 <div id="cartPage" class="page">
-<button class="back" onclick="showHome()">← 繼續點餐</button>
+
+<button class="back" onclick="showHome()">
+  ← 繼續點餐
+</button>
+
 <h2>🛒 我的購物車</h2>
 
 <div class="card" id="cartItems"></div>
 
 <div class="card">
+
   <div class="totalrow">
     <span>餐點小計</span>
     <span>$<span id="subtotal">0</span></span>
   </div>
+
   <div class="totalrow">
     <span>外送費</span>
     <span>$<span id="delivery">40</span></span>
   </div>
+
   <div class="totalrow grand">
     <span>總計</span>
     <span>$<span id="grandTotal">0</span></span>
   </div>
 
-  <button class="submit" onclick="goCheckout()">前往結帳</button>
-</div>
+  <button class="submit" onclick="goCheckout()">
+    前往結帳
+  </button>
+
 </div>
 
+</div>
+
+
+<!-- 結帳 -->
 <div id="checkoutPage" class="page">
 
-<button class="back" onclick="showCart()">← 返回購物車</button>
+<button class="back" onclick="showCart()">
+  ← 返回購物車
+</button>
 
 <h2>填寫外送資料</h2>
 
@@ -292,60 +436,82 @@ textarea{min-height:80px}
 <input id="name" placeholder="請輸入姓名">
 
 <label>手機號碼 *</label>
-<input id="phone" type="tel" placeholder="例如 0912345678">
+<input
+  id="phone"
+  type="tel"
+  placeholder="例如 0912345678"
+>
 
 <label>外送地址 *</label>
-<input id="address" placeholder="例如：大甲區雁門路191號">
+<input
+  id="address"
+  placeholder="例如：大甲區雁門路191號"
+>
 
 <label>外送時間 *</label>
+
 <select id="time">
-<option value="">請選擇</option>
-<option>盡快送達</option>
-<option>30 分鐘後</option>
-<option>60 分鐘後</option>
-<option>90 分鐘後</option>
+  <option value="">請選擇</option>
+  <option>盡快送達</option>
+  <option>30 分鐘後</option>
+  <option>60 分鐘後</option>
+  <option>90 分鐘後</option>
 </select>
 
 <label>付款方式 *</label>
+
 <select id="payment">
-<option value="">請選擇</option>
-<option>現金付款</option>
-<option>店家現場付款</option>
+  <option value="">請選擇</option>
+  <option>現金付款</option>
+  <option>店家現場付款</option>
 </select>
 
 <label>訂單備註</label>
-<textarea id="memo" placeholder="例如：不要辣、餐具不用、到達請打電話"></textarea>
+
+<textarea
+  id="memo"
+  placeholder="例如：不要辣、餐具不用、到達請打電話"
+></textarea>
 
 </div>
 
+
 <div class="card">
+
 <h3>訂單金額</h3>
 
 <div class="totalrow">
-<span>餐點小計</span>
-<span>$<span id="checkoutSubtotal">0</span></span>
+  <span>餐點小計</span>
+  <span>$<span id="checkoutSubtotal">0</span></span>
 </div>
 
 <div class="totalrow">
-<span>外送費</span>
-<span>$40</span>
+  <span>外送費</span>
+  <span>$40</span>
 </div>
 
 <div class="totalrow grand">
-<span>應付總額</span>
-<span>$<span id="checkoutTotal">0</span></span>
+  <span>應付總額</span>
+  <span>$<span id="checkoutTotal">0</span></span>
 </div>
 
-<button class="submit" onclick="submitOrder()">確認送出訂單</button>
+<button
+  class="submit"
+  id="submitOrderBtn"
+  onclick="submitOrder()"
+>
+  確認送出訂單
+</button>
 
 <p class="note">
-目前為測試版本。送出後會產生訂單編號，
-下一階段會再串接店家接單系統與 LINE 通知。
+訂單送出後會建立在「大甲吃什麼」訂單系統。
 </p>
 
 </div>
 </div>
 
+
+<!-- 成功 -->
 <div id="successPage" class="page">
 
 <div class="card success">
@@ -356,260 +522,370 @@ textarea{min-height:80px}
 
 <p>你的訂單編號</p>
 
-<div class="orderNo" id="orderNo"></div>
+<div
+  class="orderNo"
+  id="orderNo"
+></div>
 
 <p id="successInfo"></p>
 
-<button class="submit" onclick="newOrder()">回首頁</button>
+<button
+  class="submit"
+  onclick="newOrder()"
+>
+  回首頁
+</button>
 
 <p class="note">
-目前此版本為測試訂單，尚未真的通知店家。
+請保留訂單編號方便查詢。
 </p>
 
 </div>
+
 </div>
 
+
+<!-- 底部購物車 -->
 <div id="cartBar" class="cartbar">
 
 <div>
-🛒 <span id="count">0</span> 件 ・
-$<span id="total">0</span>
+  🛒
+  <span id="count">0</span>
+  件 ・ $
+  <span id="total">0</span>
 </div>
 
-<button onclick="showCart()">查看購物車</button>
+<button onclick="showCart()">
+  查看購物車
+</button>
 
 </div>
+
 
 <script>
 
-let cart = [];
-const deliveryFee = 40;
+let cart=[];
+const deliveryFee=40;
 
-function add(name,price){
 
-  let item = cart.find(x => x.name === name);
+/* 加入購物車 */
+function add(name,price,storeId){
+
+  if(cart.length>0){
+
+    const existingStore=
+      cart[0].storeId;
+
+    if(existingStore !== storeId){
+
+      alert("目前一次只能購買同一家店的商品");
+
+      return;
+    }
+  }
+
+  let item=cart.find(
+    x=>x.name===name &&
+    x.storeId===storeId
+  );
 
   if(item){
+
     item.qty++;
+
   }else{
+
     cart.push({
       name:name,
-      price:price,
-      qty:1
+      price:Number(price),
+      qty:1,
+      storeId:storeId
     });
+
   }
 
   updateCart();
 }
 
+
+/* 更新購物車 */
 function updateCart(){
 
-  let count = 0;
-  let total = 0;
+  let count=0;
+  let total=0;
 
   cart.forEach(item=>{
-    count += item.qty;
-    total += item.price * item.qty;
+
+    count+=item.qty;
+
+    total+=
+      item.price*item.qty;
+
   });
 
-  document.getElementById("count").innerText=count;
-  document.getElementById("total").innerText=total;
+  document.getElementById(
+    "count"
+  ).innerText=count;
+
+  document.getElementById(
+    "total"
+  ).innerText=total;
 
   renderCart();
 }
 
+
+/* 顯示購物車 */
 function renderCart(){
 
-  let box=document.getElementById("cartItems");
+  let box=
+    document.getElementById(
+      "cartItems"
+    );
 
   if(cart.length===0){
-    box.innerHTML="<p>購物車目前是空的</p>";
+
+    box.innerHTML=
+      "<p>購物車目前是空的</p>";
+
   }else{
 
     box.innerHTML="";
 
-    cart.forEach((item,index)=>{
+    cart.forEach(
+      (item,index)=>{
 
-      box.innerHTML += `
-      <div class="cartitem">
+      const row=
+        document.createElement("div");
 
+      row.className="cartitem";
+
+      row.innerHTML=`
         <div>
-          <b>${item.name}</b><br>
-          <span class="price">$${item.price}</span>
+          <b>${escapeHtml(item.name)}</b>
+          <br>
+          <span class="price">
+            $${item.price}
+          </span>
         </div>
 
         <div class="qty">
-          <button onclick="minus(${index})">−</button>
-          <b>${item.qty}</b>
-          <button onclick="plus(${index})">＋</button>
-        </div>
 
-      </div>
+          <button
+            onclick="minus(${index})"
+          >
+            −
+          </button>
+
+          <b>${item.qty}</b>
+
+          <button
+            onclick="plus(${index})"
+          >
+            ＋
+          </button>
+
+        </div>
       `;
+
+      box.appendChild(row);
+
     });
+
   }
 
-  let subtotal=cart.reduce(
-    (sum,item)=>sum+item.price*item.qty,0
-  );
+  let subtotal=
+    cart.reduce(
+      (sum,item)=>
+      sum+item.price*item.qty,
+      0
+    );
 
-  document.getElementById("subtotal").innerText=subtotal;
+  document.getElementById(
+    "subtotal"
+  ).innerText=subtotal;
 
-  document.getElementById("grandTotal").innerText=
-    cart.length ? subtotal+deliveryFee : 0;
+  document.getElementById(
+    "grandTotal"
+  ).innerText=
+    cart.length
+    ? subtotal+deliveryFee
+    : 0;
 
-  document.getElementById("checkoutSubtotal").innerText=subtotal;
+  document.getElementById(
+    "checkoutSubtotal"
+  ).innerText=subtotal;
 
-  document.getElementById("checkoutTotal").innerText=
-    cart.length ? subtotal+deliveryFee : 0;
+  document.getElementById(
+    "checkoutTotal"
+  ).innerText=
+    cart.length
+    ? subtotal+deliveryFee
+    : 0;
 }
+
 
 function plus(i){
+
   cart[i].qty++;
+
   updateCart();
+
 }
+
 
 function minus(i){
 
   cart[i].qty--;
 
   if(cart[i].qty<=0){
+
     cart.splice(i,1);
+
   }
 
   updateCart();
+
 }
+
 
 function hideAll(){
 
-  document.getElementById("home").classList.remove("active");
-  document.getElementById("cartPage").classList.remove("active");
-  document.getElementById("checkoutPage").classList.remove("active");
-  document.getElementById("successPage").classList.remove("active");
+  document.getElementById(
+    "home"
+  ).classList.remove("active");
+
+  document.getElementById(
+    "cartPage"
+  ).classList.remove("active");
+
+  document.getElementById(
+    "checkoutPage"
+  ).classList.remove("active");
+
+  document.getElementById(
+    "successPage"
+  ).classList.remove("active");
 
 }
+
 
 function showHome(){
 
   hideAll();
 
-  document.getElementById("home").classList.add("active");
+  document.getElementById(
+    "home"
+  ).classList.add("active");
 
-  document.getElementById("cartBar").style.display="flex";
+  document.getElementById(
+    "cartBar"
+  ).style.display="flex";
 
   window.scrollTo(0,0);
+
 }
+
 
 function showCart(){
 
   if(cart.length===0){
-    alert("購物車目前是空的");
+
+    alert(
+      "購物車目前是空的"
+    );
+
     return;
+
   }
 
   hideAll();
 
   renderCart();
 
-  document.getElementById("cartPage").classList.add("active");
+  document.getElementById(
+    "cartPage"
+  ).classList.add("active");
 
-  document.getElementById("cartBar").style.display="none";
+  document.getElementById(
+    "cartBar"
+  ).style.display="none";
 
   window.scrollTo(0,0);
+
 }
+
 
 function goCheckout(){
 
   if(cart.length===0){
-    alert("請先加入餐點");
+
+    alert(
+      "請先加入餐點"
+    );
+
     return;
+
   }
 
   hideAll();
 
-  document.getElementById("checkoutPage").classList.add("active");
+  document.getElementById(
+    "checkoutPage"
+  ).classList.add("active");
+
+  document.getElementById(
+    "cartBar"
+  ).style.display="none";
+
+  renderCart();
 
   window.scrollTo(0,0);
+
 }
 
-function submitOrder(){
 
-  let name=document.getElementById("name").value.trim();
-  let phone=document.getElementById("phone").value.trim();
-  let address=document.getElementById("address").value.trim();
-  let time=document.getElementById("time").value;
-  let payment=document.getElementById("payment").value;
+/* 搜尋 */
+function searchFood(){
 
-  if(!name){
-    alert("請輸入姓名");
-    return;
-  }
+  let keyword=
+    document.getElementById(
+      "search"
+    ).value
+    .toLowerCase()
+    .trim();
 
-  if(!/^09\d{8}$/.test(phone)){
-    alert("請輸入正確的手機號碼");
-    return;
-  }
+  document.querySelectorAll(
+    ".searchable"
+  ).forEach(shop=>{
 
-  if(!address){
-    alert("請輸入外送地址");
-    return;
-  }
+    let text=
+      shop.innerText
+      .toLowerCase();
 
-  if(!time){
-    alert("請選擇外送時間");
-    return;
-  }
+    shop.style.display=
+      text.includes(keyword)
+      ? "block"
+      : "none";
 
-  if(!payment){
-    alert("請選擇付款方式");
-    return;
-  }
+  });
 
-  let number =
-    "DJ" +
-    new Date().getFullYear().toString().slice(-2) +
-    String(new Date().getMonth()+1).padStart(2,"0") +
-    String(new Date().getDate()).padStart(2,"0") +
-    "-" +
-    Math.floor(1000+Math.random()*9000);
-
-  let subtotal=cart.reduce(
-    (sum,item)=>sum+item.price*item.qty,0
-  );
-
-  let order={
-    orderNo:number,
-    name:name,
-    phone:phone,
-    address:address,
-    time:time,
-    payment:payment,
-    memo:document.getElementById("memo").value,
-    cart:cart,
-    subtotal:subtotal,
-    deliveryFee:deliveryFee,
-    total:subtotal+deliveryFee,
-    createdAt:new Date().toLocaleString("zh-TW")
-  };
-
-  localStorage.setItem(
-    "lastOrder",
-    JSON.stringify(order)
-  );
-
-  hideAll();
-
-  document.getElementById("successPage").classList.add("active");
-
-  document.getElementById("orderNo").innerText=number;
-
-  document.getElementById("successInfo").innerHTML=
-    "外送至：<b>"+address+"</b><br><br>"+
-    "預計："+time+"<br>"+
-    "總金額：<b>$"+order.total+"</b>";
-
-  window.scrollTo(0,0);
 }
+
+
+/* 防止商品文字破壞 HTML */
+function escapeHtml(text){
+
+  const div=
+    document.createElement("div");
+
+  div.textContent=
+    String(text ?? "");
+
+  return div.innerHTML;
+
+}
+
 
 function newOrder(){
 
@@ -617,86 +893,498 @@ function newOrder(){
 
   updateCart();
 
-  document.getElementById("name").value="";
-  document.getElementById("phone").value="";
-  document.getElementById("address").value="";
-  document.getElementById("time").value="";
-  document.getElementById("payment").value="";
-  document.getElementById("memo").value="";
+  document.getElementById(
+    "name"
+  ).value="";
+
+  document.getElementById(
+    "phone"
+  ).value="";
+
+  document.getElementById(
+    "address"
+  ).value="";
+
+  document.getElementById(
+    "time"
+  ).value="";
+
+  document.getElementById(
+    "payment"
+  ).value="";
+
+  document.getElementById(
+    "memo"
+  ).value="";
 
   showHome();
+
 }
 
-function searchFood(){
-
-  let keyword=
-    document.getElementById("search").value.toLowerCase();
-
-  document.querySelectorAll(".searchable").forEach(shop=>{
-
-    let text=shop.innerText.toLowerCase();
-
-    shop.style.display=
-      text.includes(keyword) ? "block" : "none";
-
-  });
-}
 
 updateCart();
 
 </script>
+
+
 <script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
- import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-analytics.js";
- import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
- import { getFirestore, collection, getDocs } } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyBGJmQtrcZzLGPa783ZEAAI9FL5asa5J8A",
-    authDomain: "dajia-eat.firebaseapp.com",
-    projectId: "dajia-eat",
-    storageBucket: "dajia-eat.firebasestorage.app",
-    messagingSenderId: "213698880065",
-    appId: "1:213698880065:web:cb3611a26082e618615cc0",
-    measurementId: "G-L81CM58PT9"
-  };
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getFirestore(app);
-  const analytics = getAnalytics(app);
-async function loadShiluoProducts() {
-  const box = document.getElementById("shiluo-products");
-  if (!box) return;
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  addDoc,
+  serverTimestamp,
+  query,
+  where
+} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
 
-  box.innerHTML = "";
 
-  const querySnapshot = await getDocs(collection(db, "products"));
+const firebaseConfig={
 
-  querySnapshot.forEach((doc) => {
-    const product = doc.data();
+  apiKey:
+  "AIzaSyBGJmQtrcZzLGPa783ZEAAI9FLS",
 
-    if (product.storeId === "shiluo-dajia") {
-      box.innerHTML += `
-        <div class="food">
-          <div>
-            <div class="foodname">${product.name}</div>
-            <div class="price">$${product.price}</div>
-          </div>
-          <button onclick="add('${product.name}', ${product.price})">+ 加入</button>
-        </div>
-      `;
+  authDomain:
+  "dajia-eat.firebaseapp.com",
+
+  projectId:
+  "dajia-eat",
+
+  storageBucket:
+  "dajia-eat.firebasestorage.app",
+
+  messagingSenderId:
+  "213698880065"
+
+};
+
+
+const app=
+  initializeApp(firebaseConfig);
+
+const db=
+  getFirestore(app);
+
+
+
+/* =========================
+   讀取十螺商品
+========================= */
+
+async function loadShiluoProducts(){
+
+  const box=
+    document.getElementById(
+      "shiluo-products"
+    );
+
+  try{
+
+    const q=query(
+
+      collection(
+        db,
+        "products"
+      ),
+
+      where(
+        "storeId",
+        "==",
+        "shiluo-dajia"
+      )
+
+    );
+
+
+    const snapshot=
+      await getDocs(q);
+
+
+    box.innerHTML="";
+
+
+    if(snapshot.empty){
+
+      box.innerHTML=
+        '<div class="loading">目前尚無商品</div>';
+
+      return;
+
     }
-  });
+
+
+    snapshot.forEach(doc=>{
+
+      const product=
+        doc.data();
+
+      if(product.active===false){
+        return;
+      }
+
+
+      const row=
+        document.createElement(
+          "div"
+        );
+
+      row.className="food";
+
+
+      const left=
+        document.createElement(
+          "div"
+        );
+
+
+      const name=
+        document.createElement(
+          "div"
+        );
+
+      name.className=
+        "foodname";
+
+      name.textContent=
+        product.name || "";
+
+
+      const price=
+        document.createElement(
+          "div"
+        );
+
+      price.className=
+        "price";
+
+      price.textContent=
+        "$"+Number(
+          product.price || 0
+        );
+
+
+      left.appendChild(name);
+
+      left.appendChild(price);
+
+
+      const button=
+        document.createElement(
+          "button"
+        );
+
+      button.textContent=
+        "＋ 加入";
+
+
+      button.addEventListener(
+        "click",
+        ()=>{
+
+          window.add(
+            product.name,
+            Number(product.price),
+            "shiluo-dajia"
+          );
+
+        }
+      );
+
+
+      row.appendChild(left);
+
+      row.appendChild(button);
+
+      box.appendChild(row);
+
+    });
+
+
+  }catch(error){
+
+    console.error(error);
+
+    box.innerHTML=
+      '<div class="loading">❌ 商品讀取失敗，請稍後再試</div>';
+
+  }
+
 }
 
+
+
+/* =========================
+   建立 Firebase 訂單
+========================= */
+
+window.submitOrder=
+async function(){
+
+  const name=
+    document.getElementById(
+      "name"
+    ).value.trim();
+
+  const phone=
+    document.getElementById(
+      "phone"
+    ).value.trim();
+
+  const address=
+    document.getElementById(
+      "address"
+    ).value.trim();
+
+  const time=
+    document.getElementById(
+      "time"
+    ).value;
+
+  const payment=
+    document.getElementById(
+      "payment"
+    ).value;
+
+  const memo=
+    document.getElementById(
+      "memo"
+    ).value.trim();
+
+
+  if(!name){
+
+    alert("請輸入姓名");
+
+    return;
+
+  }
+
+
+  if(!/^09\d{8}$/.test(phone)){
+
+    alert(
+      "請輸入正確的手機號碼"
+    );
+
+    return;
+
+  }
+
+
+  if(!address){
+
+    alert(
+      "請輸入外送地址"
+    );
+
+    return;
+
+  }
+
+
+  if(!time){
+
+    alert(
+      "請選擇外送時間"
+    );
+
+    return;
+
+  }
+
+
+  if(!payment){
+
+    alert(
+      "請選擇付款方式"
+    );
+
+    return;
+
+  }
+
+
+  if(cart.length===0){
+
+    alert(
+      "購物車目前是空的"
+    );
+
+    return;
+
+  }
+
+
+  const button=
+    document.getElementById(
+      "submitOrderBtn"
+    );
+
+
+  const now=
+    new Date();
+
+
+  const number=
+    "DJ"+
+    now.getFullYear()
+      .toString()
+      .slice(-2)+
+    String(
+      now.getMonth()+1
+    ).padStart(2,"0")+
+    String(
+      now.getDate()
+    ).padStart(2,"0")+
+    "-"+
+    Math.floor(
+      1000+
+      Math.random()*9000
+    );
+
+
+  const subtotal=
+    cart.reduce(
+      (sum,item)=>
+      sum+
+      item.price*
+      item.qty,
+      0
+    );
+
+
+  const total=
+    subtotal+
+    deliveryFee;
+
+
+  const storeId=
+    cart[0].storeId;
+
+
+  try{
+
+    button.disabled=true;
+
+    button.textContent=
+      "訂單送出中...";
+
+
+    await addDoc(
+      collection(
+        db,
+        "orders"
+      ),
+      {
+
+        orderNo:number,
+
+        storeId:storeId,
+
+        customerName:name,
+
+        phone:phone,
+
+        address:address,
+
+        deliveryTime:time,
+
+        payment:payment,
+
+        memo:memo,
+
+        items:cart.map(
+          item=>({
+            name:item.name,
+            price:item.price,
+            qty:item.qty
+          })
+        ),
+
+        subtotal:subtotal,
+
+        deliveryFee:
+          deliveryFee,
+
+        total:total,
+
+        status:"new",
+
+        createdAt:
+          serverTimestamp()
+
+      }
+    );
+
+
+    hideAll();
+
+
+    document.getElementById(
+      "successPage"
+    ).classList.add(
+      "active"
+    );
+
+
+    document.getElementById(
+      "cartBar"
+    ).style.display=
+      "none";
+
+
+    document.getElementById(
+      "orderNo"
+    ).innerText=
+      number;
+
+
+    document.getElementById(
+      "successInfo"
+    ).innerHTML=
+      "外送至：<b>"+
+      escapeHtml(address)+
+      "</b><br><br>"+
+      "預計："+escapeHtml(time)+
+      "<br>"+
+      "總金額：<b>$"+
+      total+
+      "</b>";
+
+
+    window.scrollTo(0,0);
+
+
+  }catch(error){
+
+    console.error(error);
+
+    alert(
+      "訂單送出失敗："+
+      error.message
+    );
+
+
+  }finally{
+
+    button.disabled=false;
+
+    button.textContent=
+      "確認送出訂單";
+
+  }
+
+};
+
+
 loadShiluoProducts();
+
 </script>
+
 </body>
 </html>
