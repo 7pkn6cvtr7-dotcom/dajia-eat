@@ -45,8 +45,8 @@ textarea{min-height:80px}.totalrow{display:flex;justify-content:space-between;pa
 <body>
 <div id="home" class="page active">
 <header><h1>🍜 大甲吃什麼</h1><p>大甲在地美食・快速外送到你家</p></header>
+<div class="search"><button class="back" id="lastOrderBtn" style="display:none" onclick="restoreLastOrder()">查詢上一筆訂單 →</button></div>
 <div class="search"><input id="search" placeholder="搜尋店家或餐點 🔍" oninput="searchFood()"></div>
-<div class="categories"><div class="category">🔥 熱門</div><div class="category">🍜 麵食</div><div class="category">🍱 便當</div><div class="category">🥤 飲料</div><div class="category">🍗 炸物</div></div>
 <div class="content"><h2>大甲熱門店家</h2>
 
 <div class="shop searchable"><div class="cover">🍜</div><div class="info">
@@ -54,11 +54,6 @@ textarea{min-height:80px}.totalrow{display:flex;justify-content:space-between;pa
 <div id="shiluo-products"><div class="loading">商品讀取中...</div></div>
 </div></div>
 
-<div class="shop searchable"><div class="cover">🍱</div><div class="info">
-<h3>大甲便當店</h3><p class="gray">⭐ 4.7 ・ 約 15–25 分鐘</p><p class="gray">📍 大甲區</p>
-<div class="food"><div><div class="foodname">招牌雞腿飯</div><div class="price">$120</div></div><button onclick="add('招牌雞腿飯',120,'test-bento')">＋ 加入</button></div>
-<div class="food"><div><div class="foodname">排骨飯</div><div class="price">$110</div></div><button onclick="add('排骨飯',110,'test-bento')">＋ 加入</button></div>
-</div></div>
 </div></div>
 
 <div id="cartPage" class="page">
@@ -120,11 +115,29 @@ updateCart();
 
 <script type="module">
 import {initializeApp} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
-import {getFirestore,collection,getDocs,addDoc,serverTimestamp,query,where,doc,onSnapshot} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
+import {getFirestore,collection,getDocs,getDoc,addDoc,serverTimestamp,query,where,doc,onSnapshot} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
+import {getAuth,signInAnonymously,onAuthStateChanged} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
 
 const firebaseConfig={apiKey:"AIzaSyBGJmQtrcZzLGPa783ZEAAI9FL5asa5J8A",authDomain:"dajia-eat.firebaseapp.com",projectId:"dajia-eat",storageBucket:"dajia-eat.firebasestorage.app",messagingSenderId:"213698880065",appId:"1:213698880065:web:cb3611a26082e618615cc0"};
 const app=initializeApp(firebaseConfig); const db=getFirestore(app);
+const auth=getAuth(app);
 let stopOrderListener=null;
+let customerUid=null;
+onAuthStateChanged(auth,async user=>{
+ if(!user){try{await signInAnonymously(auth)}catch(error){console.error("匿名登入失敗",error)}return}
+ customerUid=user.uid;
+ const saved=localStorage.getItem("dajia-last-order");
+ if(saved){try{const {uid}=JSON.parse(saved);if(uid===user.uid)document.getElementById("lastOrderBtn").style.display="block"}catch(error){console.error(error)}}
+});
+window.restoreLastOrder=async function(){
+ try{const saved=JSON.parse(localStorage.getItem("dajia-last-order"));if(!saved||saved.uid!==customerUid)throw new Error("無法查詢");
+  const snapshot=await getDoc(doc(db,"orders",saved.id));if(!snapshot.exists())throw new Error("訂單不存在");const order=snapshot.data();
+  hideAll();document.getElementById("cartBar").style.display="none";document.getElementById("successPage").classList.add("active");
+  document.getElementById("orderNo").textContent=order.orderNo||saved.id;
+  document.getElementById("successInfo").innerHTML="外送至：<b>"+escapeHtml(order.address)+"</b><br><br>預計："+escapeHtml(order.deliveryTime)+"<br>總金額：<b>$"+Number(order.total)+"</b>";
+  watchOrder(saved.id);window.scrollTo(0,0);
+ }catch(error){alert("查詢失敗，請稍後重試。");console.error(error)}
+};
 
 async function loadShiluoProducts(){
  const box=document.getElementById("shiluo-products");
@@ -164,13 +177,14 @@ function watchOrder(orderId){
 
 window.submitOrder=async function(){
  const name=document.getElementById("name").value.trim(),phone=document.getElementById("phone").value.trim(),address=document.getElementById("address").value.trim(),time=document.getElementById("time").value,payment=document.getElementById("payment").value,memo=document.getElementById("memo").value.trim();
- if(!name){alert("請輸入姓名");return} if(!/^09\d{8}$/.test(phone)){alert("請輸入正確的手機號碼");return} if(!address){alert("請輸入外送地址");return} if(!time){alert("請選擇外送時間");return} if(!payment){alert("請選擇付款方式");return} if(cart.length===0){alert("購物車目前是空的");return}
+ if(!name){alert("請輸入姓名");return} if(!/^09\d{8}$/.test(phone)){alert("請輸入正確的手機號碼");return} if(!address){alert("請輸入外送地址");return} if(!time){alert("請選擇外送時間");return} if(!payment){alert("請選擇付款方式");return} if(cart.length===0){alert("購物車目前是空的");return} if(!customerUid){alert("連線尚未完成，請稍後再試");return}
  const button=document.getElementById("submitOrderBtn"),now=new Date();
  const number="DJ"+now.getFullYear().toString().slice(-2)+String(now.getMonth()+1).padStart(2,"0")+String(now.getDate()).padStart(2,"0")+"-"+Math.floor(1000+Math.random()*9000);
  const subtotal=cart.reduce((sum,item)=>sum+item.price*item.qty,0),total=subtotal+deliveryFee,storeId=cart[0].storeId;
  try{
   button.disabled=true;button.textContent="訂單送出中...";
-  const orderRef=await addDoc(collection(db,"orders"),{orderNo:number,storeId,customerName:name,phone,address,deliveryTime:time,payment,memo,items:cart.map(item=>({name:item.name,price:item.price,qty:item.qty})),subtotal,deliveryFee,total,status:"new",createdAt:serverTimestamp()});
+  const orderRef=await addDoc(collection(db,"orders"),{orderNo:number,storeId,customerUid,customerName:name,phone,address,deliveryTime:time,payment,memo,items:cart.map(item=>({name:item.name,price:item.price,qty:item.qty})),subtotal,deliveryFee,total,status:"new",createdAt:serverTimestamp()});
+  localStorage.setItem("dajia-last-order",JSON.stringify({id:orderRef.id,uid:customerUid}));
   hideAll();document.getElementById("successPage").classList.add("active");document.getElementById("cartBar").style.display="none";
   document.getElementById("orderNo").innerText=number;
   document.getElementById("successInfo").innerHTML="外送至：<b>"+escapeHtml(address)+"</b><br><br>預計："+escapeHtml(time)+"<br>總金額：<b>$"+total+"</b>";
