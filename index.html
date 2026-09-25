@@ -103,11 +103,28 @@ function plus(i){cart[i].qty++;updateCart()} function minus(i){cart[i].qty--;if(
 function hideAll(){["home","cartPage","checkoutPage","successPage"].forEach(id=>document.getElementById(id).classList.remove("active"))}
 function showHome(){hideAll();document.getElementById("home").classList.add("active");document.getElementById("cartBar").style.display="flex";window.scrollTo(0,0)}
 function showCart(){if(cart.length===0){alert("購物車目前是空的");return}hideAll();renderCart();document.getElementById("cartPage").classList.add("active");document.getElementById("cartBar").style.display="none";window.scrollTo(0,0)}
-function goCheckout(){if(cart.length===0){alert("請先加入餐點");return}hideAll();document.getElementById("checkoutPage").classList.add("active");document.getElementById("cartBar").style.display="none";renderCart();window.scrollTo(0,0)}
+function goCheckout(){if(cart.length===0){alert("請先加入餐點");return}loadCustomerInfo();hideAll();document.getElementById("checkoutPage").classList.add("active");document.getElementById("cartBar").style.display="none";renderCart();window.scrollTo(0,0)}
 function searchFood(){let keyword=document.getElementById("search").value.toLowerCase().trim();document.querySelectorAll(".searchable").forEach(shop=>shop.style.display=shop.innerText.toLowerCase().includes(keyword)?"block":"none")}
 function escapeHtml(text){const div=document.createElement("div");div.textContent=String(text??"");return div.innerHTML}
-function newOrder(){cart=[];updateCart();["name","phone","address","memo"].forEach(id=>document.getElementById(id).value="");document.getElementById("time").value="";document.getElementById("payment").value="";showHome()}
-updateCart();
+function saveCustomerInfo(){
+ const data={
+  name:document.getElementById("name").value.trim(),
+  phone:document.getElementById("phone").value.trim(),
+  address:document.getElementById("address").value.trim()
+ };
+ localStorage.setItem("dajia-customer-info",JSON.stringify(data));
+}
+function loadCustomerInfo(){
+ try{
+  const data=JSON.parse(localStorage.getItem("dajia-customer-info")||"null");
+  if(!data)return;
+  document.getElementById("name").value=data.name||"";
+  document.getElementById("phone").value=data.phone||"";
+  document.getElementById("address").value=data.address||"";
+ }catch(error){console.error("讀取常用外送資料失敗",error)}
+}
+function newOrder(){cart=[];updateCart();document.getElementById("memo").value="";document.getElementById("time").value="";document.getElementById("payment").value="";loadCustomerInfo();showHome()}
+updateCart();loadCustomerInfo();
 </script>
 
 <script type="module">
@@ -195,6 +212,7 @@ window.submitOrder=async function(){
   button.disabled=true;button.textContent="訂單送出中...";
   const orderRef=await addDoc(collection(db,"orders"),{orderNo:number,storeId,customerUid,customerName:name,phone,address,deliveryTime:time,payment,memo,items:cart.map(item=>({name:item.name,price:item.price,qty:item.qty})),subtotal,deliveryFee,total,status:"new",createdAt:serverTimestamp()});
   localStorage.setItem("dajia-last-order",JSON.stringify({id:orderRef.id,uid:customerUid}));
+  saveCustomerInfo();
   document.getElementById("lastOrderBtn").style.display="block";
   hideAll();document.getElementById("successPage").classList.add("active");document.getElementById("cartBar").style.display="none";
   document.getElementById("orderNo").innerText=number;
