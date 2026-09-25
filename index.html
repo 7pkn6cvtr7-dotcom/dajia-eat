@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>大甲吃什麼</title>
-
 <style>
 *{box-sizing:border-box}
 body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Noto Sans TC",sans-serif;background:#f7f7f7;color:#222;padding-bottom:100px}
@@ -12,8 +11,6 @@ header{background:#f87542;color:white;padding:28px 20px 24px}
 header h1{margin:0;font-size:30px} header p{margin:8px 0 0;font-size:16px}
 .search{background:white;padding:16px}
 .search input{width:100%;border:0;background:#f2f2f2;border-radius:15px;padding:16px;font-size:16px}
-.categories{display:flex;overflow:auto;gap:10px;padding:12px 16px 18px;background:white}
-.category{white-space:nowrap;background:#fff0e9;color:#e85d2a;border-radius:25px;padding:10px 17px;font-weight:bold}
 .content{padding:20px 16px} h2{margin:0 0 16px}
 .shop{background:white;border-radius:20px;overflow:hidden;margin-bottom:20px;box-shadow:0 4px 15px rgba(0,0,0,.06)}
 .cover{height:170px;background:#f77c49;display:flex;justify-content:center;align-items:center;font-size:65px}
@@ -38,22 +35,22 @@ textarea{min-height:80px}.totalrow{display:flex;justify-content:space-between;pa
 .note{color:#777;font-size:14px;line-height:1.6}
 .status{padding:15px;border-radius:14px;margin:16px 0;font-weight:bold;text-align:center;background:#fff3e8;color:#e85c2a}
 .status.accepted{background:#e9f8ec;color:#25863a}
+.status.preparing{background:#fff6d9;color:#8a6500}
+.status.ready{background:#e2f3ff;color:#176b91}
+.status.completed{background:#e9f8ec;color:#25863a}
 .status.rejected{background:#ffeaea;color:#b42318}
 </style>
 </head>
-
 <body>
 <div id="home" class="page active">
 <header><h1>🍜 大甲吃什麼</h1><p>大甲在地美食・快速外送到你家</p></header>
 <div class="search"><button class="back" id="lastOrderBtn" style="display:none" onclick="restoreLastOrder()">查詢上一筆訂單 →</button></div>
 <div class="search"><input id="search" placeholder="搜尋店家或餐點 🔍" oninput="searchFood()"></div>
 <div class="content"><h2>大甲熱門店家</h2>
-
 <div class="shop searchable"><div class="cover">🍜</div><div class="info">
 <h3>十螺 螺螄粉 大甲店</h3><p class="gray">⭐ 4.9 ・ 約 20–35 分鐘</p><p class="gray">📍 大甲區</p>
 <div id="shiluo-products"><div class="loading">商品讀取中...</div></div>
 </div></div>
-
 </div></div>
 
 <div id="cartPage" class="page">
@@ -91,7 +88,7 @@ textarea{min-height:80px}.totalrow{display:flex;justify-content:space-between;pa
 <p>你的訂單編號</p><div class="orderNo" id="orderNo"></div>
 <p id="successInfo"></p>
 <button class="submit" onclick="newOrder()">回首頁</button>
-<p class="note">此頁會即時更新店家的接單狀態，請保留訂單編號方便查詢。</p>
+<p class="note">此頁會即時更新店家的訂單狀態，請保留訂單編號方便查詢。</p>
 </div></div>
 
 <div id="cartBar" class="cartbar"><div>🛒 <span id="count">0</span> 件 ・ $<span id="total">0</span></div><button onclick="showCart()">查看購物車</button></div>
@@ -119,19 +116,23 @@ import {getFirestore,collection,getDocs,getDoc,addDoc,serverTimestamp,query,wher
 import {getAuth,signInAnonymously,onAuthStateChanged} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
 
 const firebaseConfig={apiKey:"AIzaSyBGJmQtrcZzLGPa783ZEAAI9FL5asa5J8A",authDomain:"dajia-eat.firebaseapp.com",projectId:"dajia-eat",storageBucket:"dajia-eat.firebasestorage.app",messagingSenderId:"213698880065",appId:"1:213698880065:web:cb3611a26082e618615cc0"};
-const app=initializeApp(firebaseConfig); const db=getFirestore(app);
-const auth=getAuth(app);
-let stopOrderListener=null;
-let customerUid=null;
+const app=initializeApp(firebaseConfig); const db=getFirestore(app); const auth=getAuth(app);
+let stopOrderListener=null,customerUid=null;
+
 onAuthStateChanged(auth,async user=>{
  if(!user){try{await signInAnonymously(auth)}catch(error){console.error("匿名登入失敗",error)}return}
  customerUid=user.uid;
  const saved=localStorage.getItem("dajia-last-order");
  if(saved){try{const {uid}=JSON.parse(saved);if(uid===user.uid)document.getElementById("lastOrderBtn").style.display="block"}catch(error){console.error(error)}}
 });
+
 window.restoreLastOrder=async function(){
- try{const saved=JSON.parse(localStorage.getItem("dajia-last-order"));if(!saved||saved.uid!==customerUid)throw new Error("無法查詢");
-  const snapshot=await getDoc(doc(db,"orders",saved.id));if(!snapshot.exists())throw new Error("訂單不存在");const order=snapshot.data();
+ try{
+  const saved=JSON.parse(localStorage.getItem("dajia-last-order"));
+  if(!saved||saved.uid!==customerUid)throw new Error("無法查詢");
+  const snapshot=await getDoc(doc(db,"orders",saved.id));
+  if(!snapshot.exists())throw new Error("訂單不存在");
+  const order=snapshot.data();
   hideAll();document.getElementById("cartBar").style.display="none";document.getElementById("successPage").classList.add("active");
   document.getElementById("orderNo").textContent=order.orderNo||saved.id;
   document.getElementById("successInfo").innerHTML="外送至：<b>"+escapeHtml(order.address)+"</b><br><br>預計："+escapeHtml(order.deliveryTime)+"<br>總金額：<b>$"+Number(order.total)+"</b>";
@@ -157,27 +158,36 @@ async function loadShiluoProducts(){
 }
 
 function watchOrder(orderId){
- if(stopOrderListener) stopOrderListener();
+ if(stopOrderListener)stopOrderListener();
  stopOrderListener=onSnapshot(doc(db,"orders",orderId),(snap)=>{
   if(!snap.exists())return;
-  const order=snap.data();
-  const box=document.getElementById("orderStatusBox");
-  const title=document.getElementById("orderStatusTitle");
-  const icon=document.getElementById("statusIcon");
+  const order=snap.data(),box=document.getElementById("orderStatusBox"),title=document.getElementById("orderStatusTitle"),icon=document.getElementById("statusIcon");
   box.className="status";
   if(order.status==="accepted"){
-   box.classList.add("accepted");box.textContent="🟢 店家已接單・準備餐點中";title.textContent="店家已接單";icon.textContent="✅";
+   box.classList.add("accepted");box.textContent="🟢 店家已接單";title.textContent="店家已接單";icon.textContent="✅";
+  }else if(order.status==="preparing"){
+   box.classList.add("preparing");box.textContent="👨‍🍳 餐點製作中...";title.textContent="店家正在製作餐點";icon.textContent="🍳";
+  }else if(order.status==="ready"){
+   box.classList.add("ready");box.textContent="🛍️ 餐點已完成・等待取餐／外送";title.textContent="餐點已完成";icon.textContent="🍜";
+  }else if(order.status==="completed"){
+   box.classList.add("completed");box.textContent="✅ 訂單已完成";title.textContent="訂單完成";icon.textContent="🎉";
   }else if(order.status==="rejected"){
    box.classList.add("rejected");box.textContent="🔴 店家目前無法接受此訂單";title.textContent="訂單未被接受";icon.textContent="❌";
   }else{
    box.textContent="🟠 等待店家接單中...";title.textContent="訂單已建立";icon.textContent="⏳";
   }
- },(error)=>{console.error("訂單狀態監聽失敗",error);document.getElementById("orderStatusBox").textContent="⚠️ 暫時無法取得店家接單狀態";});
+ },(error)=>{console.error("訂單狀態監聽失敗",error);document.getElementById("orderStatusBox").textContent="⚠️ 暫時無法取得店家訂單狀態";});
 }
 
 window.submitOrder=async function(){
  const name=document.getElementById("name").value.trim(),phone=document.getElementById("phone").value.trim(),address=document.getElementById("address").value.trim(),time=document.getElementById("time").value,payment=document.getElementById("payment").value,memo=document.getElementById("memo").value.trim();
- if(!name){alert("請輸入姓名");return} if(!/^09\d{8}$/.test(phone)){alert("請輸入正確的手機號碼");return} if(!address){alert("請輸入外送地址");return} if(!time){alert("請選擇外送時間");return} if(!payment){alert("請選擇付款方式");return} if(cart.length===0){alert("購物車目前是空的");return} if(!customerUid){alert("連線尚未完成，請稍後再試");return}
+ if(!name){alert("請輸入姓名");return}
+ if(!/^09\d{8}$/.test(phone)){alert("請輸入正確的手機號碼");return}
+ if(!address){alert("請輸入外送地址");return}
+ if(!time){alert("請選擇外送時間");return}
+ if(!payment){alert("請選擇付款方式");return}
+ if(cart.length===0){alert("購物車目前是空的");return}
+ if(!customerUid){alert("連線尚未完成，請稍後再試");return}
  const button=document.getElementById("submitOrderBtn"),now=new Date();
  const number="DJ"+now.getFullYear().toString().slice(-2)+String(now.getMonth()+1).padStart(2,"0")+String(now.getDate()).padStart(2,"0")+"-"+Math.floor(1000+Math.random()*9000);
  const subtotal=cart.reduce((sum,item)=>sum+item.price*item.qty,0),total=subtotal+deliveryFee,storeId=cart[0].storeId;
@@ -185,10 +195,12 @@ window.submitOrder=async function(){
   button.disabled=true;button.textContent="訂單送出中...";
   const orderRef=await addDoc(collection(db,"orders"),{orderNo:number,storeId,customerUid,customerName:name,phone,address,deliveryTime:time,payment,memo,items:cart.map(item=>({name:item.name,price:item.price,qty:item.qty})),subtotal,deliveryFee,total,status:"new",createdAt:serverTimestamp()});
   localStorage.setItem("dajia-last-order",JSON.stringify({id:orderRef.id,uid:customerUid}));
+  document.getElementById("lastOrderBtn").style.display="block";
   hideAll();document.getElementById("successPage").classList.add("active");document.getElementById("cartBar").style.display="none";
   document.getElementById("orderNo").innerText=number;
   document.getElementById("successInfo").innerHTML="外送至：<b>"+escapeHtml(address)+"</b><br><br>預計："+escapeHtml(time)+"<br>總金額：<b>$"+total+"</b>";
-  document.getElementById("orderStatusBox").className="status";document.getElementById("orderStatusBox").textContent="🟠 等待店家接單中...";document.getElementById("orderStatusTitle").textContent="訂單已建立";document.getElementById("statusIcon").textContent="⏳";
+  document.getElementById("orderStatusBox").className="status";document.getElementById("orderStatusBox").textContent="🟠 等待店家接單中...";
+  document.getElementById("orderStatusTitle").textContent="訂單已建立";document.getElementById("statusIcon").textContent="⏳";
   watchOrder(orderRef.id);window.scrollTo(0,0);
  }catch(error){console.error(error);alert("訂單送出失敗："+error.message)}
  finally{button.disabled=false;button.textContent="確認送出訂單"}
