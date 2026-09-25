@@ -1,229 +1,106 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>大甲吃什麼</title>
 <style>
-*{box-sizing:border-box}
-body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Noto Sans TC",sans-serif;background:#f7f7f7;color:#222;padding-bottom:100px}
-header{background:#f87542;color:white;padding:28px 20px 24px}
-header h1{margin:0;font-size:30px} header p{margin:8px 0 0;font-size:16px}
-.search{background:white;padding:16px}
-.search input{width:100%;border:0;background:#f2f2f2;border-radius:15px;padding:16px;font-size:16px}
-.content{padding:20px 16px} h2{margin:0 0 16px}
-.shop{background:white;border-radius:20px;overflow:hidden;margin-bottom:20px;box-shadow:0 4px 15px rgba(0,0,0,.06)}
-.cover{height:170px;background:#f77c49;display:flex;justify-content:center;align-items:center;font-size:65px}
-.info{padding:18px}.info h3{margin:0 0 8px;font-size:22px}.gray{color:#777;margin:5px 0}
-.food{border-top:1px solid #eee;margin-top:15px;padding-top:15px;display:flex;justify-content:space-between;align-items:center;gap:10px}
-.foodname{font-weight:bold}.price{color:#e85d2a;font-size:18px;font-weight:bold;margin-top:3px}
-button{border:0;background:#f87542;color:white;border-radius:12px;padding:11px 16px;font-size:16px;font-weight:bold}
-button:disabled{opacity:.6}.loading{color:#888;padding:18px 0 5px}
-.cartbar{position:fixed;left:15px;right:15px;bottom:18px;z-index:20;background:#222;color:white;padding:14px 18px;border-radius:18px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 5px 20px rgba(0,0,0,.25)}
-.page{display:none;padding:18px 16px}.page.active{display:block}#home.active{display:block}#home{display:none;padding:0}
-.back{background:none;color:#333;padding:5px 0 15px;font-size:16px}
-.card{background:white;border-radius:18px;padding:18px;margin-bottom:15px}
-.cartitem{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #eee;padding:13px 0}
-.qty{display:flex;gap:10px;align-items:center}.qty button{padding:5px 11px;border-radius:8px}
-label{display:block;margin:15px 0 6px;font-weight:bold}
-input,select,textarea{width:100%;border:1px solid #ddd;border-radius:12px;padding:13px;font-size:16px;background:white}
-textarea{min-height:80px}.totalrow{display:flex;justify-content:space-between;padding:7px 0}
-.grand{font-size:20px;font-weight:bold;border-top:1px solid #ddd;margin-top:8px;padding-top:14px}
-.submit{width:100%;margin-top:18px;padding:15px;font-size:18px}
-.success{text-align:center;padding:35px 15px}.success .check{font-size:70px}
-.orderNo{font-size:25px;font-weight:bold;color:#e85d2a;margin:15px 0}
-.note{color:#777;font-size:14px;line-height:1.6}
-.status{padding:15px;border-radius:14px;margin:16px 0;font-weight:bold;text-align:center;background:#fff3e8;color:#e85c2a}
-.status.accepted{background:#e9f8ec;color:#25863a}
-.status.preparing{background:#fff6d9;color:#8a6500}
-.status.ready{background:#e2f3ff;color:#176b91}
-.status.completed{background:#e9f8ec;color:#25863a}
-.status.rejected{background:#ffeaea;color:#b42318}
-</style>
-</head>
-<body>
-<div id="home" class="page active">
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Noto Sans TC",sans-serif;background:#f7f7f7;color:#222;padding-bottom:100px}
+header{background:#f87542;color:#fff;padding:28px 20px 24px}header h1{margin:0;font-size:30px}header p{margin:8px 0 0}
+.search{background:#fff;padding:12px 16px}.search input{width:100%;border:0;background:#f2f2f2;border-radius:15px;padding:16px;font-size:16px}
+.content,.page{padding:18px 16px}.page{display:none}.page.active{display:block}#home{display:none;padding:0}#home.active{display:block}
+.card,.shop{background:#fff;border-radius:18px;padding:18px;margin-bottom:15px;box-shadow:0 4px 15px #0000000f}.shop{padding:0;overflow:hidden}
+.cover{height:170px;background:#f77c49;display:flex;justify-content:center;align-items:center;font-size:65px}.info{padding:18px}.gray,.note,.muted{color:#777;font-size:14px;line-height:1.6}
+.food,.cartitem,.orderline{border-top:1px solid #eee;padding:14px 0;display:flex;justify-content:space-between;gap:10px;align-items:center}.foodname{font-weight:bold}.price{color:#e85d2a;font-size:18px;font-weight:bold}
+button{border:0;background:#f87542;color:#fff;border-radius:12px;padding:11px 16px;font-size:16px;font-weight:bold}.quiet{background:#eee;color:#333}.submit{width:100%;margin-top:16px;padding:15px}
+label{display:block;margin:14px 0 6px;font-weight:bold}input,select,textarea{width:100%;border:1px solid #ddd;border-radius:12px;padding:13px;font-size:16px;background:#fff}textarea{min-height:80px}
+.actions{display:flex;gap:8px;flex-wrap:wrap}.authTabs{display:flex;gap:8px;margin-bottom:16px}.authTabs button{flex:1}.inactive{background:#eee;color:#444}
+.cartbar{position:fixed;left:15px;right:15px;bottom:18px;z-index:20;background:#222;color:#fff;padding:14px 18px;border-radius:18px;display:flex;justify-content:space-between;align-items:center}
+.qty{display:flex;gap:10px;align-items:center}.qty button{padding:5px 11px}.totalrow{display:flex;justify-content:space-between;padding:7px 0}.grand{font-size:20px;font-weight:bold;border-top:1px solid #ddd;margin-top:8px;padding-top:14px}
+.back{background:none;color:#333;padding:5px 0 15px}.success{text-align:center;padding:35px 15px}.check{font-size:70px}.orderNo{font-size:25px;font-weight:bold;color:#e85d2a;margin:15px 0}
+.status{padding:15px;border-radius:14px;margin:16px 0;font-weight:bold;text-align:center;background:#fff3e8;color:#e85c2a}.status.accepted,.status.completed{background:#e9f8ec;color:#25863a}.status.preparing{background:#fff6d9;color:#8a6500}.status.ready{background:#e2f3ff;color:#176b91}.status.rejected{background:#ffeaea;color:#b42318}
+.topnav{display:flex;gap:8px;flex-wrap:wrap;background:#fff;padding:12px 16px}.topnav button{flex:1;min-width:95px}.loading{color:#888;padding:18px 0}.error{color:#b42318}
+</style></head><body>
+
+<div id="authPage" class="page active">
+<header><h1>🍜 大甲吃什麼</h1><p>會員登入後即可開始點餐</p></header>
+<div class="card" style="margin-top:18px">
+<div class="authTabs"><button id="loginTab">登入</button><button id="registerTab" class="inactive">註冊</button></div>
+<form id="loginForm"><label>Email</label><input id="loginEmail" type="email" required><label>密碼</label><input id="loginPassword" type="password" minlength="6" required><button class="submit">登入</button></form>
+<form id="registerForm" style="display:none"><label>姓名</label><input id="regName" required><label>手機</label><input id="regPhone" type="tel" placeholder="0912345678" required><label>常用外送地址</label><input id="regAddress" required><label>Email</label><input id="regEmail" type="email" required><label>密碼（至少 6 碼）</label><input id="regPassword" type="password" minlength="6" required><button class="submit">建立會員</button></form>
+<p id="authNotice" class="note"></p></div></div>
+
+<div id="home" class="page">
 <header><h1>🍜 大甲吃什麼</h1><p>大甲在地美食・快速外送到你家</p></header>
-<div class="search"><button class="back" id="lastOrderBtn" style="display:none" onclick="restoreLastOrder()">查詢上一筆訂單 →</button></div>
+<div class="topnav"><button onclick="showHome()">點餐</button><button onclick="showMyOrders()">我的訂單</button><button onclick="showProfile()">會員資料</button></div>
 <div class="search"><input id="search" placeholder="搜尋店家或餐點 🔍" oninput="searchFood()"></div>
-<div class="content"><h2>大甲熱門店家</h2>
-<div class="shop searchable"><div class="cover">🍜</div><div class="info">
-<h3>十螺 螺螄粉 大甲店</h3><p class="gray">⭐ 4.9 ・ 約 20–35 分鐘</p><p class="gray">📍 大甲區</p>
-<div id="shiluo-products"><div class="loading">商品讀取中...</div></div>
-</div></div>
-</div></div>
-
-<div id="cartPage" class="page">
-<button class="back" onclick="showHome()">← 繼續點餐</button><h2>🛒 我的購物車</h2>
-<div class="card" id="cartItems"></div>
-<div class="card"><div class="totalrow"><span>餐點小計</span><span>$<span id="subtotal">0</span></span></div>
-<div class="totalrow"><span>外送費</span><span>$<span id="delivery">40</span></span></div>
-<div class="totalrow grand"><span>總計</span><span>$<span id="grandTotal">0</span></span></div>
-<button class="submit" onclick="goCheckout()">前往結帳</button></div>
+<div class="content"><h2>大甲熱門店家</h2><div class="shop searchable"><div class="cover">🍜</div><div class="info"><h3>十螺 螺螄粉 大甲店</h3><p class="gray">⭐ 4.9 ・ 約 20–35 分鐘</p><p class="gray">📍 大甲區</p><div id="shiluo-products"><div class="loading">商品讀取中...</div></div></div></div></div>
 </div>
 
-<div id="checkoutPage" class="page">
-<button class="back" onclick="showCart()">← 返回購物車</button><h2>填寫外送資料</h2>
-<div class="card">
-<label>姓名 *</label><input id="name" placeholder="請輸入姓名">
-<label>手機號碼 *</label><input id="phone" type="tel" placeholder="例如 0912345678">
-<label>外送地址 *</label><input id="address" placeholder="例如：大甲區雁門路191號">
-<label>外送時間 *</label><select id="time"><option value="">請選擇</option><option>盡快送達</option><option>30 分鐘後</option><option>60 分鐘後</option><option>90 分鐘後</option></select>
-<label>付款方式 *</label><select id="payment"><option value="">請選擇</option><option>現金付款</option><option>店家現場付款</option></select>
-<label>訂單備註</label><textarea id="memo" placeholder="例如：不要辣、餐具不用、到達請打電話"></textarea>
-</div>
-<div class="card"><h3>訂單金額</h3>
-<div class="totalrow"><span>餐點小計</span><span>$<span id="checkoutSubtotal">0</span></span></div>
-<div class="totalrow"><span>外送費</span><span>$40</span></div>
-<div class="totalrow grand"><span>應付總額</span><span>$<span id="checkoutTotal">0</span></span></div>
-<button class="submit" id="submitOrderBtn" onclick="submitOrder()">確認送出訂單</button>
-<p class="note">訂單送出後會建立在「大甲吃什麼」訂單系統。</p></div>
-</div>
+<div id="cartPage" class="page"><button class="back" onclick="showHome()">← 繼續點餐</button><h2>🛒 我的購物車</h2><div class="card" id="cartItems"></div><div class="card"><div class="totalrow"><span>餐點小計</span><span>$<span id="subtotal">0</span></span></div><div class="totalrow"><span>外送費</span><span>$40</span></div><div class="totalrow grand"><span>總計</span><span>$<span id="grandTotal">0</span></span></div><button class="submit" onclick="goCheckout()">前往結帳</button></div></div>
 
-<div id="successPage" class="page">
-<div class="card success">
-<div class="check" id="statusIcon">⏳</div>
-<h2 id="orderStatusTitle">訂單已建立</h2>
-<div id="orderStatusBox" class="status">🟠 等待店家接單中...</div>
-<p>你的訂單編號</p><div class="orderNo" id="orderNo"></div>
-<p id="successInfo"></p>
-<button class="submit" onclick="newOrder()">回首頁</button>
-<p class="note">此頁會即時更新店家的訂單狀態，請保留訂單編號方便查詢。</p>
-</div></div>
+<div id="checkoutPage" class="page"><button class="back" onclick="showCart()">← 返回購物車</button><h2>填寫外送資料</h2><div class="card">
+<label>姓名 *</label><input id="name"><label>手機號碼 *</label><input id="phone" type="tel"><label>外送地址 *</label><input id="address"><label>外送時間 *</label><select id="time"><option value="">請選擇</option><option>盡快送達</option><option>30 分鐘後</option><option>60 分鐘後</option><option>90 分鐘後</option></select><label>付款方式 *</label><select id="payment"><option value="">請選擇</option><option>現金付款</option><option>店家現場付款</option></select><label>訂單備註</label><textarea id="memo"></textarea></div>
+<div class="card"><div class="totalrow"><span>餐點小計</span><span>$<span id="checkoutSubtotal">0</span></span></div><div class="totalrow"><span>外送費</span><span>$40</span></div><div class="totalrow grand"><span>應付總額</span><span>$<span id="checkoutTotal">0</span></span></div><button class="submit" id="submitOrderBtn" onclick="submitOrder()">確認送出訂單</button></div></div>
 
-<div id="cartBar" class="cartbar"><div>🛒 <span id="count">0</span> 件 ・ $<span id="total">0</span></div><button onclick="showCart()">查看購物車</button></div>
+<div id="successPage" class="page"><div class="card success"><div class="check" id="statusIcon">⏳</div><h2 id="orderStatusTitle">訂單已建立</h2><div id="orderStatusBox" class="status">🟠 等待店家接單中...</div><p>你的訂單編號</p><div class="orderNo" id="orderNo"></div><p id="successInfo"></p><button class="submit" onclick="showMyOrders()">查看我的訂單</button><button class="submit quiet" onclick="newOrder()">回首頁</button></div></div>
+
+<div id="ordersPage" class="page"><button class="back" onclick="showHome()">← 回首頁</button><h2>我的訂單</h2><div class="card"><div id="myOrdersList">讀取中...</div></div></div>
+
+<div id="profilePage" class="page"><button class="back" onclick="showHome()">← 回首頁</button><h2>會員資料</h2><div class="card"><form id="profileForm"><label>Email</label><input id="profileEmail" disabled><label>姓名</label><input id="profileName" required><label>手機</label><input id="profilePhone" required><label>常用外送地址</label><input id="profileAddress" required><button class="submit">儲存會員資料</button></form><button id="logoutBtn" class="submit quiet">登出</button><p id="profileNotice" class="note"></p></div></div>
+
+<div id="cartBar" class="cartbar" style="display:none"><div>🛒 <span id="count">0</span> 件 ・ $<span id="total">0</span></div><button onclick="showCart()">查看購物車</button></div>
 
 <script>
-let cart=[]; const deliveryFee=40;
-function add(name,price,storeId){if(cart.length>0&&cart[0].storeId!==storeId){alert("目前一次只能購買同一家店的商品");return}let item=cart.find(x=>x.name===name&&x.storeId===storeId);if(item)item.qty++;else cart.push({name,price:Number(price),qty:1,storeId});updateCart()}
-window.add=add;
-function updateCart(){let count=0,total=0;cart.forEach(item=>{count+=item.qty;total+=item.price*item.qty});document.getElementById("count").innerText=count;document.getElementById("total").innerText=total;renderCart()}
-function renderCart(){let box=document.getElementById("cartItems");if(cart.length===0)box.innerHTML="<p>購物車目前是空的</p>";else{box.innerHTML="";cart.forEach((item,index)=>{const row=document.createElement("div");row.className="cartitem";row.innerHTML=`<div><b>${escapeHtml(item.name)}</b><br><span class="price">$${item.price}</span></div><div class="qty"><button onclick="minus(${index})">−</button><b>${item.qty}</b><button onclick="plus(${index})">＋</button></div>`;box.appendChild(row)})}let subtotal=cart.reduce((sum,item)=>sum+item.price*item.qty,0);document.getElementById("subtotal").innerText=subtotal;document.getElementById("grandTotal").innerText=cart.length?subtotal+deliveryFee:0;document.getElementById("checkoutSubtotal").innerText=subtotal;document.getElementById("checkoutTotal").innerText=cart.length?subtotal+deliveryFee:0}
-function plus(i){cart[i].qty++;updateCart()} function minus(i){cart[i].qty--;if(cart[i].qty<=0)cart.splice(i,1);updateCart()}
-function hideAll(){["home","cartPage","checkoutPage","successPage"].forEach(id=>document.getElementById(id).classList.remove("active"))}
-function showHome(){hideAll();document.getElementById("home").classList.add("active");document.getElementById("cartBar").style.display="flex";window.scrollTo(0,0)}
-function showCart(){if(cart.length===0){alert("購物車目前是空的");return}hideAll();renderCart();document.getElementById("cartPage").classList.add("active");document.getElementById("cartBar").style.display="none";window.scrollTo(0,0)}
-function goCheckout(){if(cart.length===0){alert("請先加入餐點");return}loadCustomerInfo();hideAll();document.getElementById("checkoutPage").classList.add("active");document.getElementById("cartBar").style.display="none";renderCart();window.scrollTo(0,0)}
-function searchFood(){let keyword=document.getElementById("search").value.toLowerCase().trim();document.querySelectorAll(".searchable").forEach(shop=>shop.style.display=shop.innerText.toLowerCase().includes(keyword)?"block":"none")}
-function escapeHtml(text){const div=document.createElement("div");div.textContent=String(text??"");return div.innerHTML}
-function saveCustomerInfo(){
- const data={
-  name:document.getElementById("name").value.trim(),
-  phone:document.getElementById("phone").value.trim(),
-  address:document.getElementById("address").value.trim()
- };
- localStorage.setItem("dajia-customer-info",JSON.stringify(data));
-}
-function loadCustomerInfo(){
- try{
-  const data=JSON.parse(localStorage.getItem("dajia-customer-info")||"null");
-  if(!data)return;
-  document.getElementById("name").value=data.name||"";
-  document.getElementById("phone").value=data.phone||"";
-  document.getElementById("address").value=data.address||"";
- }catch(error){console.error("讀取常用外送資料失敗",error)}
-}
-function newOrder(){cart=[];updateCart();document.getElementById("memo").value="";document.getElementById("time").value="";document.getElementById("payment").value="";loadCustomerInfo();showHome()}
-updateCart();loadCustomerInfo();
+let cart=[];const deliveryFee=40;
+const pages=["authPage","home","cartPage","checkoutPage","successPage","ordersPage","profilePage"];
+function hideAll(){pages.forEach(id=>document.getElementById(id).classList.remove("active"))}
+function showHome(){hideAll();document.getElementById("home").classList.add("active");document.getElementById("cartBar").style.display="flex";scrollTo(0,0)}
+function add(name,price,storeId){if(cart.length&&cart[0].storeId!==storeId){alert("目前一次只能購買同一家店的商品");return}const x=cart.find(i=>i.name===name&&i.storeId===storeId);x?x.qty++:cart.push({name,price:Number(price),qty:1,storeId});updateCart()}window.add=add;
+function updateCart(){let c=0,t=0;cart.forEach(i=>{c+=i.qty;t+=i.price*i.qty});document.getElementById("count").textContent=c;document.getElementById("total").textContent=t;renderCart()}
+function renderCart(){const box=document.getElementById("cartItems");box.innerHTML=cart.length?"":"<p>購物車目前是空的</p>";cart.forEach((i,n)=>{const r=document.createElement("div");r.className="cartitem";r.innerHTML=`<div><b>${escapeHtml(i.name)}</b><br><span class="price">$${i.price}</span></div><div class="qty"><button onclick="minus(${n})">−</button><b>${i.qty}</b><button onclick="plus(${n})">＋</button></div>`;box.append(r)});const s=cart.reduce((a,i)=>a+i.price*i.qty,0);["subtotal","checkoutSubtotal"].forEach(id=>document.getElementById(id).textContent=s);document.getElementById("grandTotal").textContent=cart.length?s+40:0;document.getElementById("checkoutTotal").textContent=cart.length?s+40:0}
+function plus(i){cart[i].qty++;updateCart()}function minus(i){if(--cart[i].qty<=0)cart.splice(i,1);updateCart()}
+function showCart(){if(!cart.length)return alert("購物車目前是空的");hideAll();renderCart();document.getElementById("cartPage").classList.add("active");document.getElementById("cartBar").style.display="none"}
+function goCheckout(){if(!cart.length)return;loadProfileToCheckout();hideAll();document.getElementById("checkoutPage").classList.add("active");document.getElementById("cartBar").style.display="none";renderCart()}
+function searchFood(){const k=document.getElementById("search").value.toLowerCase().trim();document.querySelectorAll(".searchable").forEach(x=>x.style.display=x.innerText.toLowerCase().includes(k)?"block":"none")}
+function escapeHtml(t){const d=document.createElement("div");d.textContent=String(t??"");return d.innerHTML}
+function newOrder(){cart=[];updateCart();document.getElementById("time").value="";document.getElementById("payment").value="";document.getElementById("memo").value="";showHome()}
+updateCart();
 </script>
 
 <script type="module">
 import {initializeApp} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
-import {getFirestore,collection,getDocs,getDoc,addDoc,serverTimestamp,query,where,doc,onSnapshot} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
-import {getAuth,signInAnonymously,onAuthStateChanged} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+import {getFirestore,collection,getDocs,getDoc,setDoc,updateDoc,addDoc,serverTimestamp,query,where,doc,onSnapshot} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
+import {getAuth,onAuthStateChanged,createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+const cfg={apiKey:"AIzaSyBGJmQtrcZzLGPa783ZEAAI9FL5asa5J8A",authDomain:"dajia-eat.firebaseapp.com",projectId:"dajia-eat",storageBucket:"dajia-eat.firebasestorage.app",messagingSenderId:"213698880065",appId:"1:213698880065:web:cb3611a26082e618615cc0"};
+const app=initializeApp(cfg),db=getFirestore(app),auth=getAuth(app);
+let currentUser=null,profile=null,stopOrderListener=null,stopMyOrders=null;
 
-const firebaseConfig={apiKey:"AIzaSyBGJmQtrcZzLGPa783ZEAAI9FL5asa5J8A",authDomain:"dajia-eat.firebaseapp.com",projectId:"dajia-eat",storageBucket:"dajia-eat.firebasestorage.app",messagingSenderId:"213698880065",appId:"1:213698880065:web:cb3611a26082e618615cc0"};
-const app=initializeApp(firebaseConfig); const db=getFirestore(app); const auth=getAuth(app);
-let stopOrderListener=null,customerUid=null;
+function authMsg(m,e=false){const x=document.getElementById("authNotice");x.textContent=m;x.className=e?"error":"note"}
+document.getElementById("loginTab").onclick=()=>{document.getElementById("loginForm").style.display="block";document.getElementById("registerForm").style.display="none";document.getElementById("loginTab").className="";document.getElementById("registerTab").className="inactive"};
+document.getElementById("registerTab").onclick=()=>{document.getElementById("loginForm").style.display="none";document.getElementById("registerForm").style.display="block";document.getElementById("registerTab").className="";document.getElementById("loginTab").className="inactive"};
+
+document.getElementById("loginForm").onsubmit=async e=>{e.preventDefault();try{authMsg("登入中...");await signInWithEmailAndPassword(auth,document.getElementById("loginEmail").value.trim(),document.getElementById("loginPassword").value)}catch(x){authMsg("登入失敗，請確認 Email 與密碼。",true)}};
+document.getElementById("registerForm").onsubmit=async e=>{e.preventDefault();const name=document.getElementById("regName").value.trim(),phone=document.getElementById("regPhone").value.trim(),address=document.getElementById("regAddress").value.trim(),email=document.getElementById("regEmail").value.trim(),password=document.getElementById("regPassword").value;if(!/^09\d{8}$/.test(phone))return authMsg("請輸入正確手機號碼。",true);try{authMsg("建立會員中...");const c=await createUserWithEmailAndPassword(auth,email,password);await setDoc(doc(db,"users",c.user.uid),{name,phone,address,email,createdAt:serverTimestamp(),updatedAt:serverTimestamp()});authMsg("")}catch(x){authMsg(x.code==="auth/email-already-in-use"?"這個 Email 已經註冊過。":"註冊失敗，請確認資料後再試。",true)}};
 
 onAuthStateChanged(auth,async user=>{
- if(!user){try{await signInAnonymously(auth)}catch(error){console.error("匿名登入失敗",error)}return}
- customerUid=user.uid;
- const saved=localStorage.getItem("dajia-last-order");
- if(saved){try{const {uid}=JSON.parse(saved);if(uid===user.uid)document.getElementById("lastOrderBtn").style.display="block"}catch(error){console.error(error)}}
+ stopMyOrders?.();stopMyOrders=null;currentUser=user||null;profile=null;
+ if(!user){hideAll();document.getElementById("authPage").classList.add("active");document.getElementById("cartBar").style.display="none";return}
+ const snap=await getDoc(doc(db,"users",user.uid));
+ if(!snap.exists()){await signOut(auth);authMsg("這個帳號沒有會員資料，請重新註冊。",true);return}
+ profile=snap.data();loadProfileToCheckout();showHome();loadShiluoProducts();
 });
+window.loadProfileToCheckout=function(){if(!profile)return;document.getElementById("name").value=profile.name||"";document.getElementById("phone").value=profile.phone||"";document.getElementById("address").value=profile.address||""};
 
-window.restoreLastOrder=async function(){
- try{
-  const saved=JSON.parse(localStorage.getItem("dajia-last-order"));
-  if(!saved||saved.uid!==customerUid)throw new Error("無法查詢");
-  const snapshot=await getDoc(doc(db,"orders",saved.id));
-  if(!snapshot.exists())throw new Error("訂單不存在");
-  const order=snapshot.data();
-  hideAll();document.getElementById("cartBar").style.display="none";document.getElementById("successPage").classList.add("active");
-  document.getElementById("orderNo").textContent=order.orderNo||saved.id;
-  document.getElementById("successInfo").innerHTML="外送至：<b>"+escapeHtml(order.address)+"</b><br><br>預計："+escapeHtml(order.deliveryTime)+"<br>總金額：<b>$"+Number(order.total)+"</b>";
-  watchOrder(saved.id);window.scrollTo(0,0);
- }catch(error){alert("查詢失敗，請稍後重試。");console.error(error)}
-};
+async function loadShiluoProducts(){const box=document.getElementById("shiluo-products");try{const s=await getDocs(query(collection(db,"products"),where("storeId","==","shiluo-dajia")));box.innerHTML="";s.forEach(d=>{const p=d.data();if(p.active===false)return;const r=document.createElement("div");r.className="food";const l=document.createElement("div");l.innerHTML=`<div class="foodname">${escapeHtml(p.name)}</div><div class="price">$${Number(p.price)}</div>`;const b=document.createElement("button");b.textContent="＋ 加入";b.onclick=()=>add(p.name,Number(p.price),"shiluo-dajia");r.append(l,b);box.append(r)});if(!box.children.length)box.innerHTML='<div class="loading">目前尚無商品</div>'}catch(x){box.innerHTML='<div class="error">商品讀取失敗</div>'}}
 
-async function loadShiluoProducts(){
- const box=document.getElementById("shiluo-products");
- try{
-  const q=query(collection(db,"products"),where("storeId","==","shiluo-dajia"));
-  const snapshot=await getDocs(q); box.innerHTML="";
-  if(snapshot.empty){box.innerHTML='<div class="loading">目前尚無商品</div>';return}
-  snapshot.forEach(productDoc=>{
-   const product=productDoc.data(); if(product.active===false)return;
-   const row=document.createElement("div");row.className="food";
-   const left=document.createElement("div"),name=document.createElement("div"),price=document.createElement("div"),button=document.createElement("button");
-   name.className="foodname";name.textContent=product.name||"";price.className="price";price.textContent="$"+Number(product.price||0);
-   button.textContent="＋ 加入";button.addEventListener("click",()=>window.add(product.name,Number(product.price),"shiluo-dajia"));
-   left.append(name,price);row.append(left,button);box.appendChild(row);
-  });
- }catch(error){console.error(error);box.innerHTML='<div class="loading">❌ 商品讀取失敗，請稍後再試</div>'}
-}
+const statusText={new:"等待店家接單",accepted:"店家已接單",preparing:"餐點製作中",ready:"餐點完成／等待取餐外送",completed:"訂單完成",rejected:"店家無法接單"};
+function dateText(ts){try{return ts?.toDate?.().toLocaleString("zh-TW")||"—"}catch{return"—"}}
+window.showMyOrders=function(){hideAll();document.getElementById("ordersPage").classList.add("active");document.getElementById("cartBar").style.display="none";const list=document.getElementById("myOrdersList");list.textContent="讀取中...";stopMyOrders?.();stopMyOrders=onSnapshot(query(collection(db,"orders"),where("customerUid","==",currentUser.uid)),snap=>{const orders=snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.createdAt?.toMillis?.()||0)-(a.createdAt?.toMillis?.()||0));list.replaceChildren();if(!orders.length){list.textContent="目前沒有訂單";return}orders.forEach(o=>{const r=document.createElement("div");r.className="orderline";const left=document.createElement("div");left.innerHTML=`<b>${escapeHtml(o.orderNo||o.id)}</b><div class="muted">${dateText(o.createdAt)}<br>${escapeHtml((o.items||[]).map(i=>`${i.name} × ${i.qty}`).join("、"))}<br>總額：$${Number(o.total||0)}<br>狀態：${escapeHtml(statusText[o.status]||o.status)}</div>`;const b=document.createElement("button");b.textContent="查看";b.onclick=()=>openOrder(o.id);r.append(left,b);list.append(r)})},()=>list.textContent="歷史訂單讀取失敗");};
+async function openOrder(id){const s=await getDoc(doc(db,"orders",id));if(!s.exists())return;const o=s.data();hideAll();document.getElementById("successPage").classList.add("active");document.getElementById("orderNo").textContent=o.orderNo||id;document.getElementById("successInfo").innerHTML=`外送至：<b>${escapeHtml(o.address)}</b><br><br>預計：${escapeHtml(o.deliveryTime)}<br>總金額：<b>$${Number(o.total)}</b>`;watchOrder(id)}
 
-function watchOrder(orderId){
- if(stopOrderListener)stopOrderListener();
- stopOrderListener=onSnapshot(doc(db,"orders",orderId),(snap)=>{
-  if(!snap.exists())return;
-  const order=snap.data(),box=document.getElementById("orderStatusBox"),title=document.getElementById("orderStatusTitle"),icon=document.getElementById("statusIcon");
-  box.className="status";
-  if(order.status==="accepted"){
-   box.classList.add("accepted");box.textContent="🟢 店家已接單";title.textContent="店家已接單";icon.textContent="✅";
-  }else if(order.status==="preparing"){
-   box.classList.add("preparing");box.textContent="👨‍🍳 餐點製作中...";title.textContent="店家正在製作餐點";icon.textContent="🍳";
-  }else if(order.status==="ready"){
-   box.classList.add("ready");box.textContent="🛍️ 餐點已完成・等待取餐／外送";title.textContent="餐點已完成";icon.textContent="🍜";
-  }else if(order.status==="completed"){
-   box.classList.add("completed");box.textContent="✅ 訂單已完成";title.textContent="訂單完成";icon.textContent="🎉";
-  }else if(order.status==="rejected"){
-   box.classList.add("rejected");box.textContent="🔴 店家目前無法接受此訂單";title.textContent="訂單未被接受";icon.textContent="❌";
-  }else{
-   box.textContent="🟠 等待店家接單中...";title.textContent="訂單已建立";icon.textContent="⏳";
-  }
- },(error)=>{console.error("訂單狀態監聽失敗",error);document.getElementById("orderStatusBox").textContent="⚠️ 暫時無法取得店家訂單狀態";});
-}
+function watchOrder(id){stopOrderListener?.();stopOrderListener=onSnapshot(doc(db,"orders",id),s=>{if(!s.exists())return;const o=s.data(),box=document.getElementById("orderStatusBox"),title=document.getElementById("orderStatusTitle"),icon=document.getElementById("statusIcon");box.className="status";if(o.status==="accepted"){box.classList.add("accepted");box.textContent="🟢 店家已接單";title.textContent="店家已接單";icon.textContent="✅"}else if(o.status==="preparing"){box.classList.add("preparing");box.textContent="👨‍🍳 餐點製作中...";title.textContent="店家正在製作餐點";icon.textContent="🍳"}else if(o.status==="ready"){box.classList.add("ready");box.textContent="🛍️ 餐點已完成・等待取餐／外送";title.textContent="餐點已完成";icon.textContent="🍜"}else if(o.status==="completed"){box.classList.add("completed");box.textContent="✅ 訂單已完成";title.textContent="訂單完成";icon.textContent="🎉"}else if(o.status==="rejected"){box.classList.add("rejected");box.textContent="🔴 店家目前無法接受此訂單";title.textContent="訂單未被接受";icon.textContent="❌"}else{box.textContent="🟠 等待店家接單中...";title.textContent="訂單已建立";icon.textContent="⏳"}})}
 
-window.submitOrder=async function(){
- const name=document.getElementById("name").value.trim(),phone=document.getElementById("phone").value.trim(),address=document.getElementById("address").value.trim(),time=document.getElementById("time").value,payment=document.getElementById("payment").value,memo=document.getElementById("memo").value.trim();
- if(!name){alert("請輸入姓名");return}
- if(!/^09\d{8}$/.test(phone)){alert("請輸入正確的手機號碼");return}
- if(!address){alert("請輸入外送地址");return}
- if(!time){alert("請選擇外送時間");return}
- if(!payment){alert("請選擇付款方式");return}
- if(cart.length===0){alert("購物車目前是空的");return}
- if(!customerUid){alert("連線尚未完成，請稍後再試");return}
- const button=document.getElementById("submitOrderBtn"),now=new Date();
- const number="DJ"+now.getFullYear().toString().slice(-2)+String(now.getMonth()+1).padStart(2,"0")+String(now.getDate()).padStart(2,"0")+"-"+Math.floor(1000+Math.random()*9000);
- const subtotal=cart.reduce((sum,item)=>sum+item.price*item.qty,0),total=subtotal+deliveryFee,storeId=cart[0].storeId;
- try{
-  button.disabled=true;button.textContent="訂單送出中...";
-  const orderRef=await addDoc(collection(db,"orders"),{orderNo:number,storeId,customerUid,customerName:name,phone,address,deliveryTime:time,payment,memo,items:cart.map(item=>({name:item.name,price:item.price,qty:item.qty})),subtotal,deliveryFee,total,status:"new",createdAt:serverTimestamp()});
-  localStorage.setItem("dajia-last-order",JSON.stringify({id:orderRef.id,uid:customerUid}));
-  saveCustomerInfo();
-  document.getElementById("lastOrderBtn").style.display="block";
-  hideAll();document.getElementById("successPage").classList.add("active");document.getElementById("cartBar").style.display="none";
-  document.getElementById("orderNo").innerText=number;
-  document.getElementById("successInfo").innerHTML="外送至：<b>"+escapeHtml(address)+"</b><br><br>預計："+escapeHtml(time)+"<br>總金額：<b>$"+total+"</b>";
-  document.getElementById("orderStatusBox").className="status";document.getElementById("orderStatusBox").textContent="🟠 等待店家接單中...";
-  document.getElementById("orderStatusTitle").textContent="訂單已建立";document.getElementById("statusIcon").textContent="⏳";
-  watchOrder(orderRef.id);window.scrollTo(0,0);
- }catch(error){console.error(error);alert("訂單送出失敗："+error.message)}
- finally{button.disabled=false;button.textContent="確認送出訂單"}
-};
-loadShiluoProducts();
-</script>
-</body>
-</html>
+window.submitOrder=async function(){const name=document.getElementById("name").value.trim(),phone=document.getElementById("phone").value.trim(),address=document.getElementById("address").value.trim(),time=document.getElementById("time").value,payment=document.getElementById("payment").value,memo=document.getElementById("memo").value.trim();if(!name||!address||!time||!payment||!/^09\d{8}$/.test(phone)||!cart.length)return alert("請確認外送資料是否完整");const now=new Date(),number="DJ"+now.getFullYear().toString().slice(-2)+String(now.getMonth()+1).padStart(2,"0")+String(now.getDate()).padStart(2,"0")+"-"+Math.floor(1000+Math.random()*9000),subtotal=cart.reduce((s,i)=>s+i.price*i.qty,0),total=subtotal+40,b=document.getElementById("submitOrderBtn");try{b.disabled=true;b.textContent="訂單送出中...";const ref=await addDoc(collection(db,"orders"),{orderNo:number,storeId:cart[0].storeId,customerUid:currentUser.uid,customerName:name,phone,address,deliveryTime:time,payment,memo,items:cart.map(i=>({name:i.name,price:i.price,qty:i.qty})),subtotal,deliveryFee:40,total,status:"new",createdAt:serverTimestamp()});await updateDoc(doc(db,"users",currentUser.uid),{name,phone,address,email:currentUser.email,updatedAt:serverTimestamp()});profile={...profile,name,phone,address,email:currentUser.email};await openOrder(ref.id)}catch(x){console.error(x);alert("訂單送出失敗："+x.message)}finally{b.disabled=false;b.textContent="確認送出訂單"}};
+
+window.showProfile=function(){if(!profile)return;hideAll();document.getElementById("profilePage").classList.add("active");document.getElementById("cartBar").style.display="none";document.getElementById("profileEmail").value=currentUser.email||"";document.getElementById("profileName").value=profile.name||"";document.getElementById("profilePhone").value=profile.phone||"";document.getElementById("profileAddress").value=profile.address||""};
+document.getElementById("profileForm").onsubmit=async e=>{e.preventDefault();const name=document.getElementById("profileName").value.trim(),phone=document.getElementById("profilePhone").value.trim(),address=document.getElementById("profileAddress").value.trim();if(!/^09\d{8}$/.test(phone))return document.getElementById("profileNotice").textContent="手機格式不正確";try{await updateDoc(doc(db,"users",currentUser.uid),{name,phone,address,email:currentUser.email,updatedAt:serverTimestamp()});profile={...profile,name,phone,address};loadProfileToCheckout();document.getElementById("profileNotice").textContent="會員資料已儲存"}catch(x){document.getElementById("profileNotice").textContent="儲存失敗"}};
+document.getElementById("logoutBtn").onclick=()=>signOut(auth);
+</script></body></html>
