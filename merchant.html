@@ -1,55 +1,209 @@
 <!doctype html>
 <html lang="zh-Hant">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>大甲吃什麼｜店家後台</title>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#f7f7f7;color:#222;font-family:-apple-system,BlinkMacSystemFont,"Noto Sans TC",sans-serif}header{background:#f87542;color:#fff;padding:22px 18px}header h1{font-size:24px;margin:0}header p{margin:7px 0 0}.wrap{max-width:760px;margin:auto;padding:18px}.card{background:#fff;border-radius:16px;padding:18px;margin-bottom:14px;box-shadow:0 3px 12px #0000000a}h2{font-size:20px;margin:0 0 14px}label{display:block;margin:12px 0 5px;font-weight:600}input,textarea{width:100%;border:1px solid #ddd;border-radius:10px;padding:12px;font:inherit}textarea{min-height:70px}button{border:0;background:#f87542;color:#fff;border-radius:10px;padding:10px 14px;font:inherit;font-weight:600;cursor:pointer}button:disabled{opacity:.55;cursor:default}.quiet{background:#eee;color:#333}.danger{background:#aa3535}.row{display:flex;align-items:center;justify-content:space-between;gap:12px}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.tabs{display:flex;gap:8px;margin-bottom:14px}.tabs button{flex:1}.tabs .inactive{background:#fff;color:#444}.muted{color:#666;font-size:14px;line-height:1.5}.line{border-top:1px solid #eee;padding:15px 0}.line:first-child{border:0;padding-top:0}.badge{border-radius:20px;padding:5px 10px;background:#fff0e7;color:#b94e20;font-size:13px;white-space:nowrap}.badge.accepted{background:#e3f5e5;color:#247433}.badge.rejected{background:#fbe6e6;color:#a32b2b}.error{color:#ae3030}.hidden{display:none!important}#notice{min-height:22px}small{color:#666}
+*{box-sizing:border-box}
+body{margin:0;background:#f7f7f7;color:#222;font-family:-apple-system,BlinkMacSystemFont,"Noto Sans TC",sans-serif}
+header{background:#f87542;color:#fff;padding:22px 18px}
+header h1{font-size:24px;margin:0} header p{margin:7px 0 0}
+.wrap{max-width:760px;margin:auto;padding:18px}
+.card{background:#fff;border-radius:16px;padding:18px;margin-bottom:14px;box-shadow:0 3px 12px #0000000a}
+h2{font-size:20px;margin:0 0 14px}
+label{display:block;margin:12px 0 5px;font-weight:600}
+input,textarea{width:100%;border:1px solid #ddd;border-radius:10px;padding:12px;font:inherit}
+textarea{min-height:70px}
+button{border:0;background:#f87542;color:#fff;border-radius:10px;padding:10px 14px;font:inherit;font-weight:600;cursor:pointer}
+button:disabled{opacity:.55;cursor:default}
+.quiet{background:#eee;color:#333}.danger{background:#aa3535}.success{background:#2f7d45}
+.row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.tabs{display:flex;gap:8px;margin-bottom:14px}.tabs button{flex:1}.tabs .inactive{background:#fff;color:#444}
+.muted{color:#666;font-size:14px;line-height:1.5}
+.line{border-top:1px solid #eee;padding:15px 0}.line:first-child{border:0;padding-top:0}
+.badge{border-radius:20px;padding:5px 10px;background:#fff0e7;color:#b94e20;font-size:13px;white-space:nowrap}
+.badge.accepted{background:#e3f5e5;color:#247433}
+.badge.preparing{background:#fff3cd;color:#856404}
+.badge.ready{background:#d9edf7;color:#17627a}
+.badge.completed{background:#e9ecef;color:#495057}
+.badge.rejected{background:#fbe6e6;color:#a32b2b}
+.error{color:#ae3030}.hidden{display:none!important}#notice{min-height:22px}small{color:#666}
 </style>
 </head>
 <body>
 <header><h1>大甲吃什麼｜店家後台</h1><p id="storeLabel">店家登入後即可接單與管理商品</p></header>
 <main class="wrap">
- <section class="card" id="loginPanel"><h2>店家登入</h2><p class="muted">請使用已開通權限的 Firebase 店家帳號。</p><form id="loginForm"><label for="email">電子郵件</label><input id="email" type="email" autocomplete="username" required><label for="password">密碼</label><input id="password" type="password" autocomplete="current-password" required><div class="actions"><button>登入</button></div></form></section>
- <div id="appPanel" class="hidden"><div class="row card"><strong id="staffInfo"></strong><button class="quiet" id="logout">登出</button></div><div class="tabs"><button id="ordersTab">接單</button><button id="productsTab" class="inactive">商品管理</button></div>
- <section id="ordersPanel"><div class="card"><h2>即時訂單</h2><p class="muted">新訂單出現後，請按「接單」或「無法接單」。</p><div id="ordersList">讀取中...</div></div></section>
- <section id="productsPanel" class="hidden"><div class="card"><h2 id="formTitle">新增商品</h2><form id="productForm"><label for="productName">品名</label><input id="productName" maxlength="60" required><label for="productPrice">售價（元）</label><input id="productPrice" type="number" min="1" max="9999" step="1" required><label for="productDescription">說明（選填）</label><textarea id="productDescription" maxlength="200"></textarea><div class="actions"><button id="saveProduct">儲存商品</button><button type="button" id="cancelEdit" class="quiet hidden">取消編輯</button></div></form></div><div class="card"><h2>商品清單</h2><div id="productsList">讀取中...</div></div></section>
- </div><p id="notice" role="status" aria-live="polite"></p>
+<section class="card" id="loginPanel">
+<h2>店家登入</h2>
+<p class="muted">請使用已開通權限的 Firebase 店家帳號。</p>
+<form id="loginForm">
+<label for="email">電子郵件</label><input id="email" type="email" autocomplete="username" required>
+<label for="password">密碼</label><input id="password" type="password" autocomplete="current-password" required>
+<div class="actions"><button>登入</button></div>
+</form>
+</section>
+
+<div id="appPanel" class="hidden">
+<div class="row card"><strong id="staffInfo"></strong><button class="quiet" id="logout">登出</button></div>
+<div class="tabs"><button id="ordersTab">接單</button><button id="productsTab" class="inactive">商品管理</button></div>
+
+<section id="ordersPanel">
+<div class="card">
+<h2>即時訂單</h2>
+<p class="muted">流程：待接單 → 已接單 → 製作中 → 可取餐／等待外送 → 已完成。</p>
+<div id="ordersList">讀取中...</div>
+</div>
+</section>
+
+<section id="productsPanel" class="hidden">
+<div class="card">
+<h2 id="formTitle">新增商品</h2>
+<form id="productForm">
+<label for="productName">品名</label><input id="productName" maxlength="60" required>
+<label for="productPrice">售價（元）</label><input id="productPrice" type="number" min="1" max="9999" step="1" required>
+<label for="productDescription">說明（選填）</label><textarea id="productDescription" maxlength="200"></textarea>
+<div class="actions"><button id="saveProduct">儲存商品</button><button type="button" id="cancelEdit" class="quiet hidden">取消編輯</button></div>
+</form>
+</div>
+<div class="card"><h2>商品清單</h2><div id="productsList">讀取中...</div></div>
+</section>
+</div>
+<p id="notice" role="status" aria-live="polite"></p>
 </main>
+
 <script type="module">
 import {initializeApp} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
 import {getAuth,onAuthStateChanged,signInWithEmailAndPassword,signOut} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
 import {getFirestore,collection,doc,getDoc,addDoc,updateDoc,query,where,onSnapshot,serverTimestamp} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
+
 const config={apiKey:"AIzaSyBGJmQtrcZzLGPa783ZEAAI9FL5asa5J8A",authDomain:"dajia-eat.firebaseapp.com",projectId:"dajia-eat",storageBucket:"dajia-eat.firebasestorage.app",messagingSenderId:"213698880065",appId:"1:213698880065:web:cb3611a26082e618615cc0"};
 const app=initializeApp(config),auth=getAuth(app),db=getFirestore(app);
-const el=id=>document.getElementById(id);let storeId=null,editingId=null,stopOrders=null,stopProducts=null;
+const el=id=>document.getElementById(id);
+let storeId=null,editingId=null,stopOrders=null,stopProducts=null;
+
 function notice(message,error=false){el("notice").textContent=message;el("notice").className=error?"error":""}
 function clean(){stopOrders?.();stopProducts?.();stopOrders=stopProducts=null;storeId=null;editingId=null;el("appPanel").classList.add("hidden");el("loginPanel").classList.remove("hidden");el("storeLabel").textContent="店家登入後即可接單與管理商品"}
 function tab(which){for(const name of ["orders","products"]){el(name+"Panel").classList.toggle("hidden",name!==which);el(name+"Tab").classList.toggle("inactive",name!==which)}}
-el("ordersTab").onclick=()=>tab("orders");el("productsTab").onclick=()=>tab("products");el("logout").onclick=()=>signOut(auth);
-el("loginForm").onsubmit=async event=>{event.preventDefault();notice("");try{await signInWithEmailAndPassword(auth,el("email").value.trim(),el("password").value)}catch(error){notice("登入失敗，請確認帳號與密碼。",true)}};
+el("ordersTab").onclick=()=>tab("orders");
+el("productsTab").onclick=()=>tab("products");
+el("logout").onclick=()=>signOut(auth);
+
+el("loginForm").onsubmit=async event=>{
+ event.preventDefault();notice("");
+ try{await signInWithEmailAndPassword(auth,el("email").value.trim(),el("password").value)}
+ catch(error){notice("登入失敗，請確認帳號與密碼。",true)}
+};
+
 onAuthStateChanged(auth,async user=>{
  clean();if(!user)return;
- try{const staff=await getDoc(doc(db,"staff",user.uid));if(!staff.exists()||!staff.data().storeId)throw new Error("沒有店家權限");storeId=staff.data().storeId;
- el("loginPanel").classList.add("hidden");el("appPanel").classList.remove("hidden");el("staffInfo").textContent=staff.data().storeName||storeId;el("storeLabel").textContent=staff.data().storeName||storeId;notice("");listenOrders();listenProducts();
+ try{
+  const staff=await getDoc(doc(db,"staff",user.uid));
+  if(!staff.exists()||!staff.data().storeId)throw new Error("沒有店家權限");
+  storeId=staff.data().storeId;
+  el("loginPanel").classList.add("hidden");
+  el("appPanel").classList.remove("hidden");
+  el("staffInfo").textContent=staff.data().storeName||storeId;
+  el("storeLabel").textContent=staff.data().storeName||storeId;
+  notice("");listenOrders();listenProducts();
  }catch(error){notice("此帳號尚未開通店家權限，請先在 Firebase 設定 staff 資料。",true)}
 });
-function detail(parent,label,value){const p=document.createElement("p");p.className="muted";const b=document.createElement("b");b.textContent=label+"：";p.append(b,document.createTextNode(String(value??"")));parent.append(p)}
-function action(parent,title,handler,style=""){const button=document.createElement("button");button.textContent=title;if(style)button.className=style;button.onclick=handler;parent.append(button)}
-function listenOrders(){stopOrders=onSnapshot(query(collection(db,"orders"),where("storeId","==",storeId)),snapshot=>{
- const list=el("ordersList");list.replaceChildren();const orders=snapshot.docs.map(item=>({id:item.id,...item.data()})).sort((a,b)=>(b.createdAt?.toMillis?.()||0)-(a.createdAt?.toMillis?.()||0)).slice(0,100);
- if(!orders.length){list.textContent="目前沒有訂單";return}
- for(const order of orders){const row=document.createElement("article");row.className="line";const top=document.createElement("div");top.className="row";const title=document.createElement("strong");title.textContent=order.orderNo||order.id;const badge=document.createElement("span");badge.className="badge "+(order.status||"");badge.textContent=({new:"待接單",accepted:"已接單",rejected:"無法接單"})[order.status]||order.status;top.append(title,badge);row.append(top);
- detail(row,"顧客",order.customerName);detail(row,"電話",order.phone);detail(row,"地址",order.address);detail(row,"時間",order.deliveryTime);detail(row,"付款",order.payment);detail(row,"品項",(order.items||[]).map(item=>`${item.name} × ${item.qty}`).join("、"));detail(row,"合計","$"+order.total);if(order.memo)detail(row,"備註",order.memo);
- if(order.status==="new"){const buttons=document.createElement("div");buttons.className="actions";action(buttons,"接單",()=>changeStatus(order.id,"accepted"));action(buttons,"無法接單",()=>changeStatus(order.id,"rejected"),"danger");row.append(buttons)}list.append(row)}
- },error=>notice("訂單讀取失敗，請檢查店家權限與 Firestore 規則。",true))}
-async function changeStatus(id,status){try{await updateDoc(doc(db,"orders",id),{status,updatedAt:serverTimestamp()});notice(status==="accepted"?"已接單":"已標記無法接單")}catch(error){notice("更新訂單失敗，請重新整理後再試。",true)}}
-function listenProducts(){stopProducts=onSnapshot(query(collection(db,"products"),where("storeId","==",storeId)),snapshot=>{
- const list=el("productsList");list.replaceChildren();const products=snapshot.docs.map(item=>({id:item.id,...item.data()})).sort((a,b)=>String(a.name).localeCompare(String(b.name),"zh-Hant"));if(!products.length){list.textContent="尚無商品，請從上方新增。";return}
- for(const product of products){const row=document.createElement("article");row.className="line";const heading=document.createElement("strong");heading.textContent=`${product.name}　$${product.price}`;row.append(heading);detail(row,"狀態",product.active===false?"下架":"上架");if(product.description)detail(row,"說明",product.description);const buttons=document.createElement("div");buttons.className="actions";action(buttons,"編輯",()=>{editingId=product.id;el("productName").value=product.name;el("productPrice").value=product.price;el("productDescription").value=product.description||"";el("formTitle").textContent="編輯商品";el("cancelEdit").classList.remove("hidden");window.scrollTo({top:0,behavior:"smooth"})},"quiet");action(buttons,product.active===false?"上架":"下架",async()=>{try{await updateDoc(doc(db,"products",product.id),{active:product.active===false,updatedAt:serverTimestamp()})}catch(error){notice("商品狀態更新失敗。",true)}},"quiet");row.append(buttons);list.append(row)}
- },error=>notice("商品讀取失敗，請檢查店家權限與 Firestore 規則。",true))}
+
+function detail(parent,label,value){
+ const p=document.createElement("p");p.className="muted";
+ const b=document.createElement("b");b.textContent=label+"：";
+ p.append(b,document.createTextNode(String(value??"")));parent.append(p)
+}
+function action(parent,title,handler,style=""){
+ const button=document.createElement("button");button.textContent=title;
+ if(style)button.className=style;button.onclick=handler;parent.append(button)
+}
+
+const statusText={new:"待接單",accepted:"已接單",preparing:"製作中",ready:"可取餐／等待外送",completed:"已完成",rejected:"無法接單"};
+
+function listenOrders(){
+ stopOrders=onSnapshot(query(collection(db,"orders"),where("storeId","==",storeId)),snapshot=>{
+  const list=el("ordersList");list.replaceChildren();
+  const orders=snapshot.docs.map(item=>({id:item.id,...item.data()}))
+   .sort((a,b)=>(b.createdAt?.toMillis?.()||0)-(a.createdAt?.toMillis?.()||0)).slice(0,100);
+  if(!orders.length){list.textContent="目前沒有訂單";return}
+  for(const order of orders){
+   const row=document.createElement("article");row.className="line";
+   const top=document.createElement("div");top.className="row";
+   const title=document.createElement("strong");title.textContent=order.orderNo||order.id;
+   const badge=document.createElement("span");badge.className="badge "+(order.status||"");
+   badge.textContent=statusText[order.status]||order.status||"未知";
+   top.append(title,badge);row.append(top);
+   detail(row,"顧客",order.customerName);detail(row,"電話",order.phone);detail(row,"地址",order.address);
+   detail(row,"時間",order.deliveryTime);detail(row,"付款",order.payment);
+   detail(row,"品項",(order.items||[]).map(item=>`${item.name} × ${item.qty}`).join("、"));
+   detail(row,"合計","$"+order.total);if(order.memo)detail(row,"備註",order.memo);
+
+   const buttons=document.createElement("div");buttons.className="actions";
+   if(order.status==="new"){
+    action(buttons,"接單",()=>changeStatus(order.id,"accepted"),"success");
+    action(buttons,"無法接單",()=>changeStatus(order.id,"rejected"),"danger");
+   }else if(order.status==="accepted"){
+    action(buttons,"開始製作",()=>changeStatus(order.id,"preparing"));
+   }else if(order.status==="preparing"){
+    action(buttons,"餐點完成",()=>changeStatus(order.id,"ready"),"success");
+   }else if(order.status==="ready"){
+    action(buttons,"完成訂單",()=>changeStatus(order.id,"completed"),"success");
+   }
+   if(buttons.children.length)row.append(buttons);
+   list.append(row);
+  }
+ },error=>notice("訂單讀取失敗，請檢查店家權限與 Firestore 規則。",true))
+}
+
+async function changeStatus(id,status){
+ try{
+  await updateDoc(doc(db,"orders",id),{status,updatedAt:serverTimestamp()});
+  notice("訂單狀態已更新："+statusText[status]);
+ }catch(error){notice("更新訂單失敗，請重新整理後再試。",true)}
+}
+
+function listenProducts(){
+ stopProducts=onSnapshot(query(collection(db,"products"),where("storeId","==",storeId)),snapshot=>{
+  const list=el("productsList");list.replaceChildren();
+  const products=snapshot.docs.map(item=>({id:item.id,...item.data()})).sort((a,b)=>String(a.name).localeCompare(String(b.name),"zh-Hant"));
+  if(!products.length){list.textContent="尚無商品，請從上方新增。";return}
+  for(const product of products){
+   const row=document.createElement("article");row.className="line";
+   const heading=document.createElement("strong");heading.textContent=`${product.name}　$${product.price}`;row.append(heading);
+   detail(row,"狀態",product.active===false?"下架":"上架");
+   if(product.description)detail(row,"說明",product.description);
+   const buttons=document.createElement("div");buttons.className="actions";
+   action(buttons,"編輯",()=>{
+    editingId=product.id;el("productName").value=product.name;el("productPrice").value=product.price;
+    el("productDescription").value=product.description||"";el("formTitle").textContent="編輯商品";
+    el("cancelEdit").classList.remove("hidden");window.scrollTo({top:0,behavior:"smooth"})
+   },"quiet");
+   action(buttons,product.active===false?"上架":"下架",async()=>{
+    try{await updateDoc(doc(db,"products",product.id),{active:product.active===false,updatedAt:serverTimestamp()})}
+    catch(error){notice("商品狀態更新失敗。",true)}
+   },"quiet");
+   row.append(buttons);list.append(row)
+  }
+ },error=>notice("商品讀取失敗，請檢查店家權限與 Firestore 規則。",true))
+}
+
 function resetForm(){editingId=null;el("productForm").reset();el("formTitle").textContent="新增商品";el("cancelEdit").classList.add("hidden")}
 el("cancelEdit").onclick=resetForm;
-el("productForm").onsubmit=async event=>{event.preventDefault();if(!storeId)return;const name=el("productName").value.trim(),price=Number(el("productPrice").value),description=el("productDescription").value.trim();if(!name||!Number.isInteger(price)||price<1||price>9999){notice("請填寫品名與正確售價。",true);return}const data={name,price,description,storeId};const button=el("saveProduct");button.disabled=true;try{if(editingId)await updateDoc(doc(db,"products",editingId),{name,price,description,updatedAt:serverTimestamp()});else await addDoc(collection(db,"products"),{...data,active:true,createdAt:serverTimestamp()});resetForm();notice("商品已儲存，前台重新整理後可看到。") }catch(error){notice("商品儲存失敗，請檢查店家權限與 Firestore 規則。",true)}finally{button.disabled=false}};
+
+el("productForm").onsubmit=async event=>{
+ event.preventDefault();if(!storeId)return;
+ const name=el("productName").value.trim(),price=Number(el("productPrice").value),description=el("productDescription").value.trim();
+ if(!name||!Number.isInteger(price)||price<1||price>9999){notice("請填寫品名與正確售價。",true);return}
+ const data={name,price,description,storeId};const button=el("saveProduct");button.disabled=true;
+ try{
+  if(editingId)await updateDoc(doc(db,"products",editingId),{name,price,description,updatedAt:serverTimestamp()});
+  else await addDoc(collection(db,"products"),{...data,active:true,createdAt:serverTimestamp()});
+  resetForm();notice("商品已儲存，前台重新整理後可看到。")
+ }catch(error){notice("商品儲存失敗，請檢查店家權限與 Firestore 規則。",true)}
+ finally{button.disabled=false}
+};
 </script>
-</body></html>
+</body>
+</html>
